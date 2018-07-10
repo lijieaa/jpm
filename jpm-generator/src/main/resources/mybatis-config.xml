@@ -3,11 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+
     <properties>
-       <!-- <property name="filePathPrefix" value="http://www.baidu.com"/>-->
+       <!--<property name="dbName" value="mysql"/>-->
     </properties>
+
+
     <settings>
         <setting name="callSettersOnNulls" value="true"/>
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
+
+
+
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql" />
+        <property name="Oracle" value="oracle" />
+        <property name="Sqlserver" value="mssql" />
+    </databaseIdProvider>
 </configuration>

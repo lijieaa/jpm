@@ -10,16 +10,33 @@
     <packaging>pom</packaging>
 
     <properties>
-        <guava.version>17.0</guava.version>
+        <spring.boot.starter>2.0.1.RELEASE</spring.boot.starter>
+        <druid.version>1.0.18</druid.version>
+        <oracle.driver.version>10.2.0.3.0</oracle.driver.version>
+        <mssql.driver.version>1.3.1</mssql.driver.version>
+        <mysql.driver.version>5.1.30</mysql.driver.version>
+        <hibernate.validator>6.0.9.Final</hibernate.validator>
     </properties>
 
     <modules>
         <module>jpm-common</module>
         <module>jpm-generator</module>
         <module>jpm-sys</module>
+        <module>jpm-ace-theme</module>
     </modules>
 
     <dependencies>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>${oracle.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jtds</groupId>
+            <artifactId>jtds</artifactId>
+            <version>${mssql.driver.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -35,11 +52,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <version>${druid.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -49,16 +62,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.driver.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.9.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <version>${hibernate.validator}</version>
         </dependency>
     </dependencies>
 
@@ -68,7 +77,7 @@
                 <!-- Import dependency management from Spring Boot -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.0.1.RELEASE</version>
+                <version>${spring.boot.starter}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

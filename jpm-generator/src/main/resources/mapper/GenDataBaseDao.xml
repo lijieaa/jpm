@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jpm.gen.dao.GenDataBaseDictDao">
+<mapper namespace="com.jpm.gen.dao.GenDataBaseDao">
     
 	<select id="findTableList" resultType="com.jpm.gen.entity.GenTable">
-		<if test="dbName == 'oracle'">
-			SELECT 
-				t.TABLE_NAME AS name, 
+		<if test="_databaseId == 'oracle'">
+			SELECT
+				t.TABLE_NAME AS name,
 				c.COMMENTS AS comments
-			FROM user_tables t, user_tab_comments c 
+			FROM user_tables t, user_tab_comments c
 			WHERE t.table_name = c.table_name
 			<if test="name != null and name != ''">
 				AND t.TABLE_NAME = upper(#{name})
 			</if>
 			ORDER BY t.TABLE_NAME
 		</if>
-		<if test="dbName == 'mssql'">
-			SELECT t.name AS name,b.value AS comments 
+		<if test="_databaseId == 'mssql'">
+			SELECT t.name AS name,b.value AS comments
 			FROM sys.objects t LEFT JOIN sys.extended_properties b ON b.major_id=t.object_id and b.minor_id=0 and b.class=1 AND b.name='MS_Description'
 			WHERE t.type='U'
 			<if test="name != null and name != ''">
@@ -23,9 +23,9 @@
 			</if>
 			ORDER BY t.name
 		</if>
-		<if test="dbName == 'mysql'">			
-			SELECT t.table_name AS name,t.TABLE_COMMENT AS comments 
-			FROM information_schema.`TABLES` t 
+		<if test="_databaseId == 'mysql'">
+			SELECT t.table_name AS name,t.TABLE_COMMENT AS comments
+			FROM information_schema.`TABLES` t
 			WHERE t.TABLE_SCHEMA = (select database())
 			<if test="name != null and name != ''">
 				AND t.TABLE_NAME = (#{name})
@@ -34,14 +34,14 @@
 		</if>
 	</select>
 	
-	<select id="findTableColumnList" resultType="com.jpm.gen.entity.GenTableColumn">
+	<!--<select id="findTableColumnList" resultType="com.jpm.gen.entity.GenTableColumn">
 		<if test="dbName == 'oracle'">
 			SELECT
-				t.COLUMN_NAME AS name,<!-- 
+				t.COLUMN_NAME AS name,&lt;!&ndash;
 				t.DATA_TYPE,
 				t.DATA_LENGTH,
 				t.DATA_PRECISION,
-				t.DATA_SCALE, -->
+				t.DATA_SCALE, &ndash;&gt;
 				(CASE WHEN t.NULLABLE = 'Y' THEN '1' ELSE '0' END) AS isNull,
 				(t.COLUMN_ID * 10) AS sort,
 				c.COMMENTS AS comments,
@@ -87,28 +87,30 @@
 			</if>
 			ORDER BY t.ORDINAL_POSITION
 		</if>
-	</select>
-	
+	</select>-->
+
+<!--
 	<select id="findTablePK" resultType="string">
 		<if test="dbName == 'oracle'">
 			SELECT lower(cu.COLUMN_NAME) AS columnName
 			FROM user_cons_columns cu, user_constraints au
 			WHERE cu.constraint_name = au.constraint_name
-				AND au.constraint_type = 'P'
-				AND au.table_name = upper(#{name})
+			AND au.constraint_type = 'P'
+			AND au.table_name = upper(#{name})
 		</if>
 		<if test="dbName == 'mssql'">
-			SELECT lower(au.COLUMN_NAME) AS columnName 
+			SELECT lower(au.COLUMN_NAME) AS columnName
 			FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE au
 			WHERE au.TABLE_NAME = (#{name})
 			AND au.TABLE_SCHEMA = (SCHEMA_NAME())
 		</if>
 		<if test="dbName == 'mysql'">
-			SELECT lower(au.COLUMN_NAME) AS columnName 
+			SELECT lower(au.COLUMN_NAME) AS columnName
 			FROM information_schema.`COLUMNS` au
-			WHERE au.TABLE_SCHEMA = (select database()) 
+			WHERE au.TABLE_SCHEMA = (select database())
 			AND au.COLUMN_KEY='PRI' AND au.TABLE_NAME = (#{name})
 		</if>
 	</select>
-	
+-->
+
 </mapper>

@@ -1,10 +1,21 @@
 spring:
  datasource:
   type: com.alibaba.druid.pool.DruidDataSource
-  url: jdbc:mysql://localhost:3306/jeesite?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true&autoReconnect=true
-  username: root
-  password:
-  driverClassName: com.mysql.jdbc.Driver
+  #mysql配置
+  #url: jdbc:mysql://localhost:3306/jeesite?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true&autoReconnect=true
+  #username: root
+  #password:
+  #driverClassName: com.mysql.jdbc.Driver
+  #oracle配置
+  url: jdbc:oracle:thin:@//192.168.5.10:1521/orcl
+  username: c##_csg_pm
+  password: 123456
+  driverClassName: oracle.jdbc.driver.OracleDriver
+  #SQL Server配置
+  #url: jdbc:jtds:sqlserver://192.168.40.19:1433/alarm
+  #username: sa
+  #password: alarm
+  #driverClassName: net.sourceforge.jtds.jdbc.Driver
 #dataSource Pool configuration
   initialSize: 5
   minIdle: 5
@@ -13,6 +24,7 @@ spring:
   timeBetweenEvictionRunsMillis: 60000
   minEvictableIdleTimeMillis: 300000
   validationQuery: SELECT 1 FROM DUAL
+  #validationQuery: SELECT 'x'
   testWhileIdle: true
   testOnBorrow: false
   exceptionSorter: true
@@ -29,3 +41,5 @@ mybatis:
  config-location: classpath:mybatis-config.xml
  mapper-locations: classpath:/mapper/**/*.xml
  type-aliases-package: com.jpm.*
+
+ mpath: gen
