@@ -26,4 +26,8 @@ public class GenTableController {
     public List<GenTable> findTableList(GenTable genTable){
         return genTableService.findTableList(genTable);
     }
+    @RequestMapping(value = "index")
+    public String index(){
+        return "ace/index";
+    }
 }

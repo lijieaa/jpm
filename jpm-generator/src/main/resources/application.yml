@@ -2,15 +2,15 @@ spring:
  datasource:
   type: com.alibaba.druid.pool.DruidDataSource
   #mysql配置
-  #url: jdbc:mysql://localhost:3306/jeesite?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true&autoReconnect=true
-  #username: root
-  #password:
-  #driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/jeesite?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true&autoReconnect=true
+  username: root
+  password:
+  driverClassName: com.mysql.jdbc.Driver
   #oracle配置
-  url: jdbc:oracle:thin:@//192.168.5.10:1521/orcl
-  username: c##_csg_pm
-  password: 123456
-  driverClassName: oracle.jdbc.driver.OracleDriver
+  #url: jdbc:oracle:thin:@//192.168.5.10:1521/orcl
+  #username: c##_csg_pm
+  #password: 123456
+  #driverClassName: oracle.jdbc.driver.OracleDriver
   #SQL Server配置
   #url: jdbc:jtds:sqlserver://192.168.40.19:1433/alarm
   #username: sa
