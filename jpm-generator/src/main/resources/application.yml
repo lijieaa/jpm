@@ -35,11 +35,11 @@ spring:
   maxPoolPreparedStatementPerConnectionSize: 20
   connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   useGlobalDataSourceStat: true
+ thymeleaf:
+   prefix: classpath:/templates/hplus/
 
 
 mybatis:
  config-location: classpath:mybatis-config.xml
  mapper-locations: classpath:/mapper/**/*.xml
  type-aliases-package: com.jpm.*
-
- mpath: gen
