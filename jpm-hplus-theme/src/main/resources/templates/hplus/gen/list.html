@@ -56,7 +56,8 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <select data-placeholder="选择数据表..." class="chosen-select" style="width:350px;" tabindex="2">
+                                        <label>选择数据表:</label>
+                                        <select name="tableName" id="tableName" data-placeholder="选择数据表..." class="chosen-select" style="width:350px;" tabindex="2">
                                             <option value="">选择数据表</option>
                                             <option th:each="t : ${tables}"
                                                     th:value="${t.name}" th:text="${t.name}+':'+${t.comments}"></option>
@@ -200,7 +201,7 @@
                 }
 
                 // Disable validation on fields that are disabled or hidden.
-                form.validate().settings.ignore = ":disabled,:hidden";
+                form.validate().settings.ignore = ":disabled,:hidden:not(select)";
 
                 // Start validation; Prevent going forward if false
                 return form.valid();
@@ -237,8 +238,8 @@
                 element.before(error);
             },
             rules: {
-                confirm: {
-                    equalTo: "#password"
+                tableName: {
+                    required: true
                 }
             }
         });
