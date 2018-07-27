@@ -7,9 +7,9 @@ spring:
   password:
   driverClassName: com.mysql.jdbc.Driver
   #oracle配置
-  #url: jdbc:oracle:thin:@//192.168.5.10:1521/orcl
+  #url: jdbc:oracle:thin:@//192.168.10.14:1521/orcl
   #username: c##_csg_pm
-  #password: 123456
+  #password: visizen028
   #driverClassName: oracle.jdbc.driver.OracleDriver
   #SQL Server配置
   #url: jdbc:jtds:sqlserver://192.168.40.19:1433/alarm
@@ -37,8 +37,8 @@ spring:
   useGlobalDataSourceStat: true
  thymeleaf:
    prefix: classpath:/templates/hplus/
-
-
+ #activemq:
+   #broker-url: tcp://192.168.10.14:61616
 mybatis:
  config-location: classpath:mybatis-config.xml
  mapper-locations: classpath:/mapper/**/*.xml

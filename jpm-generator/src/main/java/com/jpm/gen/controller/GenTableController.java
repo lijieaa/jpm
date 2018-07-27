@@ -4,6 +4,7 @@ import com.jpm.gen.entity.GenTable;
 import com.jpm.gen.service.GenTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,7 +28,9 @@ public class GenTableController {
         return genTableService.findTableList(genTable);
     }
     @RequestMapping(value = "list")
-    public String index(){
+    public String index(Model model,GenTable genTable){
+        List<GenTable> tableList = genTableService.findTableList(genTable);
+        model.addAttribute("tables",tableList);
         return "gen/list";
     }
 }

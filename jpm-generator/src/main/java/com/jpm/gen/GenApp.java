@@ -6,7 +6,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import java.util.Properties;
 
 @SpringBootApplication
@@ -15,8 +14,8 @@ public class GenApp {
 
     public static void main(String[] args) {
         SpringApplication.run(GenApp.class, args);
-    }
 
+    }
 
     @Bean
     public DatabaseIdProvider getDatabaseIdProvider() {
@@ -28,4 +27,7 @@ public class GenApp {
         databaseIdProvider.setProperties(p);
         return databaseIdProvider;
     }
+
+
+
 }
