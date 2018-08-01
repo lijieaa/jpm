@@ -28,12 +28,6 @@ public class GenTableController {
     @Autowired
     GenTableService genTableService;
 
-    @RequestMapping(value = "table_list")
-    @ResponseBody
-    public List<GenTable> findTableList(GenTable genTable){
-        return genTableService.findTableList(genTable);
-    }
-
     @RequestMapping(value = "list")
     public String index(Model model,GenTable genTable){
         List<GenTable> tableList = genTableService.findTableList(genTable);
@@ -42,31 +36,17 @@ public class GenTableController {
     }
 
     /**
-     * 表基本信息
+     * 获取物理数据
      * @param tname
      * @return
      */
-    @RequestMapping(value = "basic",method = RequestMethod.GET)
+    @RequestMapping(value = "phy_data",method = RequestMethod.GET)
     public @ResponseBody
-    Map basic(@RequestParam(value = "tname",required = true)String tname){
+    GenTable getFields(@RequestParam(value = "tname",required = true)String tname){
         GenTable genTable=new GenTable();
         genTable.setName(tname);
-        List<GenTable> tableList = genTableService.findTableList(genTable);
-        GenTable genTable1 = tableList.get(0);
-        Map data=new HashMap();
-       data.put("tname",genTable1.getName());
-       data.put("comments",genTable1.getComments());
-       data.put("ename",StringUtils.toCapitalizeCamelCase(genTable.getName()));
-        return data;
-    }
-
-    @RequestMapping(value = "fields",method = RequestMethod.GET)
-    public @ResponseBody
-    List<GenTableColumn> getFields(@RequestParam(value = "tname",required = true)String tname){
-        GenTable genTable=new GenTable();
-        genTable.setName(tname);
-        List<GenTableColumn> tableColumnList = genTableService.findTableColumnList(genTable);
-        return tableColumnList;
+        GenTable tableFormDb = genTableService.getTableFormDb(genTable);
+        return tableFormDb;
     }
 
 
