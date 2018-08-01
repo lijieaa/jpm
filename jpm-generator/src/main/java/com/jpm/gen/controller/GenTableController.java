@@ -2,6 +2,7 @@ package com.jpm.gen.controller;
 
 import com.jpm.common.utils.StringUtils;
 import com.jpm.gen.entity.GenTable;
+import com.jpm.gen.entity.GenTableColumn;
 import com.jpm.gen.service.GenTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,15 @@ public class GenTableController {
        data.put("comments",genTable1.getComments());
        data.put("ename",StringUtils.toCapitalizeCamelCase(genTable.getName()));
         return data;
+    }
+
+    @RequestMapping(value = "fields",method = RequestMethod.GET)
+    public @ResponseBody
+    List<GenTableColumn> getFields(@RequestParam(value = "tname",required = true)String tname){
+        GenTable genTable=new GenTable();
+        genTable.setName(tname);
+        List<GenTableColumn> tableColumnList = genTableService.findTableColumnList(genTable);
+        return tableColumnList;
     }
 
 

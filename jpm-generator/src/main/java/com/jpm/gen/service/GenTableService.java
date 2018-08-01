@@ -2,6 +2,7 @@ package com.jpm.gen.service;
 
 import com.jpm.gen.dao.GenDataBaseDao;
 import com.jpm.gen.entity.GenTable;
+import com.jpm.gen.entity.GenTableColumn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,14 @@ public class GenTableService {
      */
     public List<GenTable> findTableList(GenTable table){
         return genDataBaseDao.findTableList(table);
+    }
+
+    /**
+     * 获取表字段
+     * @param table
+     * @return
+     */
+    public List<GenTableColumn> findTableColumnList(GenTable table){
+        return genDataBaseDao.findTableColumnList(table);
     }
 }
