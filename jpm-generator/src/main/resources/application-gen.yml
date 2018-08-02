@@ -1,0 +1,47 @@
+javaType:
+ String: String
+ Long: Long
+ Integer: Integer
+ Double: String
+ java.util.Date: Date
+queryType:
+ eq: '='
+ neq: '!='
+ gt: '>'
+ ge: '>='
+ lt: '<'
+ le: '<='
+ between: 'between'
+ like: 'like'
+ left_like: 'left like'
+ right_like: 'right Like'
+showType:
+ input: 单行文本
+ textarea: 多行文本
+ select: 下拉选项
+ hiden: 隐藏域字段
+ radiobox: 单选按钮
+ checkbox: 复选框
+ dateselect: 日期选择
+ userselect: 人员选择
+ officeselect: 部门选择
+ areaselect: 区域选择
+ treeselect: 树选择控件
+ fileselect: 文件上传选择
+validator:
+ email: 电子邮件
+ url: 网址
+ date: 日期
+ number: 数值
+ integer: 整数
+ digits: 正整数
+ userName: 登录账号
+ realName: 真实姓名
+ abc: 字母数字下划线
+ simplePhone: 固定电话
+ phone: 手机或电话
+ zipCode: 邮政编码
+ ipv4: IPv4
+ ipv6: IPv6
+ qq: QQ
+ idcard: 身份证
