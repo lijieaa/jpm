@@ -22,7 +22,7 @@ public class GenUtils {
         for (GenTableColumn column : genTable.getCols()){
 
             // 如果是不是新增列，则跳过。
-            if (StringUtils.isNotBlank(column.getId())){
+            if (StringUtils.isNotBlank((String)column.getId())){
                 continue;
             }
 

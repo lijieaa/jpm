@@ -1,4 +1,4 @@
-package com.jpm.gen;
+package com.jpm;
 
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;

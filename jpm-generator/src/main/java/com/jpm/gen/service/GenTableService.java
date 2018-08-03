@@ -53,7 +53,7 @@ public class GenTableService {
             if (list.size() > 0){
 
                 // 如果是新增，初始化表属性
-                if (StringUtils.isBlank(genTable.getId())){
+                if (StringUtils.isBlank((String)genTable.getId())){
                     genTable = list.get(0);
                     // 设置字段说明
                     if (StringUtils.isBlank(genTable.getComments())){

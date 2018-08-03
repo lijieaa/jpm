@@ -10,7 +10,7 @@ import java.util.List;
  * @author: 李杰
  * @create: 2018-07-30 14:13
  **/
-public class GenTableColumn extends DataEntity<GenTableColumn> {
+public class GenTableColumn extends DataEntity<GenTableColumn,String> {
     private String name; 		// 列名
     private String comments;	// 描述
     private String jdbcType;	// JDBC类型

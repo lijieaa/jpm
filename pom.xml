@@ -19,6 +19,7 @@
         <nekohtml.version>1.9.22</nekohtml.version>
         <thymeleaf.layout.dialect.version>2.3.0</thymeleaf.layout.dialect.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
+
     </properties>
 
     <modules>
@@ -64,6 +65,10 @@
             <artifactId>jtds</artifactId>
             <version>${mssql.driver.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

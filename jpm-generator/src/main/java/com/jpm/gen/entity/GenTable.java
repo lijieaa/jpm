@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenTable extends DataEntity<GenTable> {
+public class GenTable extends DataEntity<GenTable,String> {
 
     private String name;//表名称
     private String comments;//表注释

@@ -2,6 +2,7 @@ package com.jpm.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,12 +10,19 @@ import java.util.Date;
  * @author: 李杰
  * @create: 2018-07-30 14:18
  **/
-public abstract class DataEntity<T> extends BaseEntity<T>{
+public abstract class DataEntity<T,PK extends Serializable> extends BaseEntity<T,PK>{
     protected String remarks;	// 备注
     protected User createBy;	// 创建者
     protected Date createDate;	// 创建日期
     protected User updateBy;	// 更新者
     protected Date updateDate;	// 更新日期
+
+    public DataEntity() {
+    }
+
+    public DataEntity(PK id) {
+        super(id);
+    }
 
     public String getRemarks() {
         return remarks;
