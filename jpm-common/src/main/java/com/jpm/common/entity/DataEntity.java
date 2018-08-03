@@ -15,6 +15,23 @@ public abstract class DataEntity<T,PK extends Serializable> extends BaseEntity<T
     protected User createBy;	// 创建者
     protected Date createDate;	// 创建日期
     protected User updateBy;	// 更新者
+
+    public User getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(User createBy) {
+        this.createBy = createBy;
+    }
+
+    public User getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(User updateBy) {
+        this.updateBy = updateBy;
+    }
+
     protected Date updateDate;	// 更新日期
 
     public DataEntity() {

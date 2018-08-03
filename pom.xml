@@ -19,7 +19,7 @@
         <nekohtml.version>1.9.22</nekohtml.version>
         <thymeleaf.layout.dialect.version>2.3.0</thymeleaf.layout.dialect.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
-
+        <pagehelper.version>1.2.3</pagehelper.version>
     </properties>
 
     <modules>
@@ -31,6 +31,11 @@
     </modules>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
