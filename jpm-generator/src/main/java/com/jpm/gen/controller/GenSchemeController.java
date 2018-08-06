@@ -3,11 +3,15 @@ package com.jpm.gen.controller;
 import com.github.pagehelper.PageInfo;
 import com.jpm.gen.entity.GenScheme;
 import com.jpm.gen.service.GenSchemeService;
+import com.jpm.gen.utils.GenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: 代码生成方案controller
@@ -45,8 +49,8 @@ public class GenSchemeController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String save(@RequestBody GenScheme scheme){
-        genSchemeService.add(scheme);
+    public String save(@RequestBody GenScheme scheme,Boolean isCode){
+        //genSchemeService.add(scheme);
         return "ok";
     }
 
@@ -61,6 +65,16 @@ public class GenSchemeController {
     @ResponseBody
     public String delete(@PathVariable(value="id") String[] ids){
         genSchemeService.remove(ids);
+        return "ok";
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "code")
+    @ResponseBody
+    public String code(@RequestBody GenScheme scheme) throws Exception {
+        //genSchemeService.remove(ids);
+        Writer out = new OutputStreamWriter(System.out);
+        Map<String, Object> dataModel = GenUtils.getDataModel(scheme);
+        GenUtils.render("entity.ftl",dataModel,out);
         return "ok";
     }
 }

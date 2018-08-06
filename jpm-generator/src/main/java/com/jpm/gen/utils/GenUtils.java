@@ -1,10 +1,19 @@
 package com.jpm.gen.utils;
 
+import com.google.common.collect.Maps;
+import com.jpm.common.utils.DateUtils;
 import com.jpm.common.utils.StringUtils;
+import com.jpm.gen.entity.GenScheme;
 import com.jpm.gen.entity.GenTable;
 import com.jpm.gen.entity.GenTableColumn;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.util.Map;
 
 /**
  * @description: 代码生成工具
@@ -34,7 +43,8 @@ public class GenUtils {
             // 设置java类型
             if (StringUtils.startsWithIgnoreCase(column.getJdbcType(), "CHAR")
                     || StringUtils.startsWithIgnoreCase(column.getJdbcType(), "VARCHAR")
-                    || StringUtils.startsWithIgnoreCase(column.getJdbcType(), "NARCHAR")){
+                    || StringUtils.startsWithIgnoreCase(column.getJdbcType(), "NARCHAR")
+                    ||StringUtils.startsWithIgnoreCase(column.getJdbcType(), "TEXT")){
                 column.setJavaType("String");
             }else if (StringUtils.startsWithIgnoreCase(column.getJdbcType(), "DATETIME")
                     || StringUtils.startsWithIgnoreCase(column.getJdbcType(), "DATE")
@@ -147,5 +157,51 @@ public class GenUtils {
                 column.setDictType("del_flag");
             }
         }
+    }
+
+
+
+    /**
+     * 获取数据模型
+     * @param genScheme
+     * @return
+     */
+    public static Map<String, Object> getDataModel(GenScheme genScheme){
+        Map<String, Object> model = Maps.newHashMap();
+
+        model.put("packageName", StringUtils.lowerCase(genScheme.getPackageName()));
+        model.put("lastPackageName", StringUtils.substringAfterLast((String)model.get("packageName"),"."));
+        model.put("moduleName", StringUtils.lowerCase(genScheme.getModuleName()));
+        model.put("subModuleName", StringUtils.lowerCase(genScheme.getSubModuleName()));
+        model.put("className", StringUtils.uncapitalize(genScheme.getGenTable().getClassName()));
+        model.put("ClassName", StringUtils.capitalize(genScheme.getGenTable().getClassName()));
+
+        model.put("functionName", genScheme.getFunctionName());
+        model.put("functionNameSimple", genScheme.getFunctionNameSimple());
+        model.put("functionAuthor", StringUtils.isNotBlank(genScheme.getFunctionAuthor())?genScheme.getFunctionAuthor():"李杰");
+        model.put("functionVersion", DateUtils.getDate());
+
+        model.put("urlPrefix", model.get("moduleName")+(StringUtils.isNotBlank(genScheme.getSubModuleName())
+                ?"/"+StringUtils.lowerCase(genScheme.getSubModuleName()):"")+"/"+model.get("className"));
+        model.put("viewPrefix", //StringUtils.substringAfterLast(model.get("packageName"),".")+"/"+
+                model.get("urlPrefix"));
+        model.put("permissionPrefix", model.get("moduleName")+(StringUtils.isNotBlank(genScheme.getSubModuleName())
+                ?":"+StringUtils.lowerCase(genScheme.getSubModuleName()):"")+":"+model.get("className"));
+
+        //model.put("dbType", Global.getConfig("jdbc.type"));
+
+        model.put("table", genScheme.getGenTable());
+
+        return model;
+    }
+
+
+    public static void render(String tpl,Map<String, Object> root,Writer out) throws Exception {
+        Configuration cfg = new Configuration();
+        cfg.setDirectoryForTemplateLoading(new File("D:\\VisizenProject\\cq_ataike\\code\\server\\trunk\\jpm\\jpm-generator\\src\\main\\resources\\ftl"));
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+        Template temp = cfg.getTemplate(tpl);
+        temp.process(root, out);
     }
 }

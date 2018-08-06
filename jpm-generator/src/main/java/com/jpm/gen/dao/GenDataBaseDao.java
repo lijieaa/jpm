@@ -30,5 +30,5 @@ public interface GenDataBaseDao {
      * @param genTable
      * @return
      */
-    List<Serializable> findTablePK(GenTable genTable);
+    List<String> findTablePK(GenTable genTable);
 }
