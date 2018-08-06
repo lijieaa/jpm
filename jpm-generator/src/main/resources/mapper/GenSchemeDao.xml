@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jpm.gen.dao.GenSchemeDao">
-
-	<resultMap id="BaseResultMap" type="com.jpm.gen.entity.GenScheme">
-		<id column="id"  property="id" jdbcType="VARCHAR"/>
-		<result column="name"  property="name" jdbcType="VARCHAR"/>
-		<result column="category"  property="category" jdbcType="VARCHAR"/>
-		<result column="package_name"  property="packageName" jdbcType="VARCHAR"/>
-		<result column="module_name"  property="moduleName" jdbcType="VARCHAR"/>
-		<result column="sub_module_name"  property="subModuleName" jdbcType="VARCHAR"/>
-		<result column="function_name"  property="functionName" jdbcType="VARCHAR"/>
-		<result column="function_name_simple"  property="functionNameSimple" jdbcType="VARCHAR"/>
-		<result column="function_author"  property="functionAuthor" jdbcType="VARCHAR"/>
-		<result column="create_date"  property="createDate" jdbcType="TIMESTAMP"/>
-		<result column="update_date"  property="updateDate" jdbcType="TIMESTAMP"/>
-		<result column="remarks"  property="remarks" jdbcType="VARCHAR"/>
-	</resultMap>
-
 	<sql id="Base_Column_List">
     id,name,category,package_name,module_name,sub_module_name,function_name,function_name_simple,function_author,create_date,update_date,remarks
   </sql>

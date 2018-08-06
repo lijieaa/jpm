@@ -293,4 +293,14 @@ public class GenTableColumn extends DataEntity<GenTableColumn,String> {
         return list;
     }
 
+
+    /**
+     * 获取Java字段，如果是对象，则获取对象.附加属性1
+     * @return
+     */
+    public String getJavaFieldId(){
+        return StringUtils.substringBefore(getJavaField(), "|");
+    }
+
+
 }

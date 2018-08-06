@@ -74,7 +74,7 @@ public class GenSchemeController {
         //genSchemeService.remove(ids);
         Writer out = new OutputStreamWriter(System.out);
         Map<String, Object> dataModel = GenUtils.getDataModel(scheme);
-        GenUtils.render("entity.ftl",dataModel,out);
+        GenUtils.render("mapper.ftl",dataModel,out);
         return "ok";
     }
 }
