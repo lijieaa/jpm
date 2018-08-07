@@ -1,5 +1,6 @@
 package com.jpm.gen.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.jpm.common.entity.DataEntity;
 import com.jpm.common.utils.StringUtils;
@@ -208,6 +209,7 @@ public class GenTableColumn extends DataEntity<GenTableColumn,String> {
      * 获取列注解列表
      * @return
      */
+    @JsonIgnore
     public List<String> getAnnotationList(){
         List<String> list = Lists.newArrayList();
         // 导入Jackson注解
@@ -285,6 +287,7 @@ public class GenTableColumn extends DataEntity<GenTableColumn,String> {
      * 获取简写列注解列表
      * @return
      */
+    @JsonIgnore
     public List<String> getSimpleAnnotationList(){
         List<String> list = Lists.newArrayList();
         for (String ann : getAnnotationList()){

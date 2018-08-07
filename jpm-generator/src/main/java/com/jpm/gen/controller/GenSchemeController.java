@@ -1,6 +1,7 @@
 package com.jpm.gen.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.jpm.gen.dao.GenSchemeDao;
 import com.jpm.gen.entity.GenScheme;
 import com.jpm.gen.service.GenSchemeService;
 import com.jpm.gen.utils.GenUtils;
@@ -25,25 +26,29 @@ public class GenSchemeController {
     @Autowired
     GenSchemeService genSchemeService;
 
+
+    @Autowired
+    GenSchemeDao dao;
+
     @RequestMapping(method = RequestMethod.GET,value = "{id}")
     @ResponseBody
     public GenScheme get(@PathVariable(value="id") String id){
-        GenScheme entiy = genSchemeService.get(id);
+        GenScheme entiy = genSchemeService.find(id);
         return entiy;
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "page")
     @ResponseBody
-    public PageInfo page(GenScheme entiy, int num, int size){
-        PageInfo pageInfo = genSchemeService.findPage(entiy,num,size);
+    public PageInfo page(@RequestParam Map data){
+        PageInfo pageInfo = genSchemeService.findPage(data);
         return pageInfo;
     }
 
 
     @RequestMapping(method = RequestMethod.GET,value = "list")
     @ResponseBody
-    public List<GenScheme> list(GenScheme entiy){
-        List<GenScheme> list = genSchemeService.findAll(entiy);
+    public List<GenScheme> list(@RequestParam Map data){
+        List<GenScheme> list = genSchemeService.findAll(data);
         return list;
     }
 
@@ -74,7 +79,7 @@ public class GenSchemeController {
         //genSchemeService.remove(ids);
         Writer out = new OutputStreamWriter(System.out);
         Map<String, Object> dataModel = GenUtils.getDataModel(scheme);
-        GenUtils.render("mapper.ftl",dataModel,out);
+        GenUtils.render("dao.ftl",dataModel,out);
         return "ok";
     }
 }

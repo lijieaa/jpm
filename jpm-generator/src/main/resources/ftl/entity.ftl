@@ -1,4 +1,4 @@
-package ${packageName}.entity;
+package ${packageName}.${moduleName}.entity;
 
 <#list table.importList as i>
 import ${i};

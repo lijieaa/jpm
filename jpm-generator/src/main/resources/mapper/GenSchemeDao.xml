@@ -9,24 +9,19 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM gen_scheme a
-
 		WHERE a.id = #{id}
 	</select>
 
-	<!--<select id="findList" resultType="GenScheme">
-		SELECT
-			<include refid="genSchemeColumns"/>
-		FROM gen_scheme a
-		<include refid="genSchemeJoins"/>
-		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
-		<if test="name != null and name != ''">
-			AND a.name LIKE
-				<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
-				<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
-				<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
-		</if>
-		ORDER BY a.update_date DESC
-	</select>-->
+    <select id="test" parameterType="java.util.Map" resultType="com.jpm.gen.entity.GenScheme">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM gen_scheme a
+        <where>
+            a.id=#{id}
+        </where>
+        order by #{asc} desc
+    </select>
+
 
 	<select id="selectAll" resultType="com.jpm.gen.entity.GenScheme">
 		SELECT

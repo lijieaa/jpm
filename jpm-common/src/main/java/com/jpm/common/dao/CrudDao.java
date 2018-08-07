@@ -2,6 +2,7 @@ package com.jpm.common.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: CrudDao
@@ -26,10 +27,10 @@ public interface CrudDao<T,PK extends Serializable> extends BaseDao {
 
     /**
      * 查询所有数据列表
-     * @param entity
+     * @param data
      * @return
      */
-    public List<T> selectAll(T entity);
+    public List<T> selectAll(Map data);
 
 
     /**

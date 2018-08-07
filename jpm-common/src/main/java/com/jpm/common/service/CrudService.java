@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: CrudService基类
@@ -29,7 +30,7 @@ public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity
      * @param id
      * @return
      */
-    public T get(PK id){
+    public T find(PK id){
         return dao.select(id);
     };
 
@@ -38,18 +39,8 @@ public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity
      * @param entity
      * @return
      */
-    public T get(T entity){
+    public T find(T entity){
         return dao.select(entity);
-    };
-
-
-    /**
-     * 查询所有数据列表
-     * @param entity
-     * @return
-     */
-    public List<T> getAll(T entity){
-        return dao.selectAll(entity);
     };
 
 
@@ -83,25 +74,33 @@ public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity
 
     /**
      * 分页查询
-     * @param entiy 实体用于条件筛选
-     * @param num 当前页
-     * @param size 每页条数
+     * @param data
      * @return
      */
-    public PageInfo findPage(T entiy, int num, int size){
+    public PageInfo findPage(Map data){
+        String numStr = (String) data.get("num");
+        int num=1;
+        if (null!=numStr&&!numStr.equals("")){
+            num = Integer.parseInt(numStr);
+        }
+        String sizeStr = (String) data.get("size");
+        int size=10;
+        if (null!=sizeStr&&!sizeStr.equals("")){
+            size = Integer.parseInt(sizeStr);
+        }
         PageHelper.startPage(num, size);
-        List<T> list = dao.selectAll(entiy);
+        List<T> list = dao.selectAll(data);
         PageInfo pageInfo = new PageInfo(list);
         return pageInfo;
     }
 
     /**
      * 查询所有
-     * @param entiy 实体用于条件筛选
+     * @param data 实体用于条件筛选
      * @return
      */
-    public List<T> findAll(T entiy){
-        List<T> list = dao.selectAll(entiy);
+    public List<T> findAll(Map data){
+        List<T> list = dao.selectAll(data);
         return list;
     }
 }
