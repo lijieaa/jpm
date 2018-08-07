@@ -45,3 +45,9 @@ validator:
  ipv6: IPv6
  qq: QQ
  idcard: 身份证
+ftl:
+  entity: entity
+  mapper: mapper
+  dao: dao
+  service: service
+  controller: controller

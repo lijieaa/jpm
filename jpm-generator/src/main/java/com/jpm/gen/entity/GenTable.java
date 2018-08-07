@@ -3,7 +3,6 @@ package com.jpm.gen.entity;
 import com.jpm.common.entity.DataEntity;
 import com.jpm.common.utils.StringUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -9,7 +9,7 @@ import com.jpm.common.entity.DataEntity;
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
-public class ${ClassName} extends DataEntity<${ClassName},String> {
+public class ${ClassName}Entity extends DataEntity<${ClassName}Entity,String> {
 
 	private static final long serialVersionUID = 1L;
 <#-- 生成字段属性 -->
@@ -20,11 +20,11 @@ public class ${ClassName} extends DataEntity<${ClassName},String> {
     </#if>
 </#list>
 <#-- 构造方法 -->
-	public ${ClassName}() {
+	public ${ClassName}Entity() {
 		super();
 	}
 
-	public ${ClassName}(String id){
+	public ${ClassName}Entity(String id){
 		super(id);
 	}
 

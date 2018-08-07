@@ -11,5 +11,5 @@ import org.springframework.stereotype.Service;
  * @create: 2018-08-02 16:45
  **/
 @Service
-public class GenSchemeService extends CrudService<GenSchemeDao,GenScheme,String> {
+public class GenSchemeService extends CrudService<GenSchemeDao,GenScheme,String>{
 }

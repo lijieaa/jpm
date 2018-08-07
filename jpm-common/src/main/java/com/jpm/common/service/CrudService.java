@@ -16,7 +16,7 @@ import java.util.Map;
  * @author: 李杰
  * @create: 2018-08-02 15:53
  **/
-@Transactional
+@Transactional(readOnly = true)
 public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity<T,PK>,PK extends Serializable> extends BaseService {
 
     /**
@@ -49,6 +49,7 @@ public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity
      * @param entity
      * @return
      */
+    @Transactional(readOnly = false)
     public int add(T entity){
         return dao.insert(entity);
     };
@@ -58,6 +59,7 @@ public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity
      * @param entity
      * @return
      */
+    @Transactional(readOnly = false)
     public int update(T entity){
         return dao.update(entity);
     };
@@ -68,6 +70,7 @@ public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity
      * @param ids
      * @return
      */
+    @Transactional(readOnly = false)
     public int remove(PK[] ids){
         return dao.delete(ids);
     }

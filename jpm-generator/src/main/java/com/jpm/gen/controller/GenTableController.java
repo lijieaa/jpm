@@ -1,8 +1,6 @@
 package com.jpm.gen.controller;
 
-import com.jpm.common.utils.StringUtils;
 import com.jpm.gen.entity.GenTable;
-import com.jpm.gen.entity.GenTableColumn;
 import com.jpm.gen.service.GenTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;

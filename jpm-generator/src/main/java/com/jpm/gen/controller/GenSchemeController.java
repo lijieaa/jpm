@@ -1,18 +1,24 @@
 package com.jpm.gen.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.jpm.common.utils.StringUtils;
 import com.jpm.gen.dao.GenSchemeDao;
 import com.jpm.gen.entity.GenScheme;
 import com.jpm.gen.service.GenSchemeService;
 import com.jpm.gen.utils.GenUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * @description: 代码生成方案controller
@@ -21,7 +27,20 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("gen/scheme")
+@ConfigurationProperties
 public class GenSchemeController {
+
+
+    public Map<String, String> getFtl() {
+        return ftl;
+    }
+
+    public void setFtl(Map<String, String> ftl) {
+        this.ftl = ftl;
+    }
+
+    //查询类型
+    private Map<String, String> ftl = new LinkedHashMap<String,String>();
 
     @Autowired
     GenSchemeService genSchemeService;
@@ -54,15 +73,15 @@ public class GenSchemeController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String save(@RequestBody GenScheme scheme,Boolean isCode){
-        //genSchemeService.add(scheme);
+    public String save(@RequestBody GenScheme entity){
+        genSchemeService.add(entity);
         return "ok";
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseBody
-    public String update(@RequestBody GenScheme scheme){
-        genSchemeService.update(scheme);
+    public String update(@RequestBody GenScheme entity){
+        genSchemeService.update(entity);
         return "ok";
     }
 
@@ -75,11 +94,36 @@ public class GenSchemeController {
 
     @RequestMapping(method = RequestMethod.POST,value = "code")
     @ResponseBody
-    public String code(@RequestBody GenScheme scheme) throws Exception {
+    public void code(HttpServletResponse response,@RequestBody GenScheme entity) throws Exception {
         //genSchemeService.remove(ids);
-        Writer out = new OutputStreamWriter(System.out);
-        Map<String, Object> dataModel = GenUtils.getDataModel(scheme);
-        GenUtils.render("dao.ftl",dataModel,out);
-        return "ok";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ZipOutputStream zip = new ZipOutputStream(outputStream);
+
+        for (Map.Entry<String, String> entry : ftl.entrySet()) {
+            if(entry.getKey().equals("mapper")){
+                zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+entry.getKey()+ File.separator+entity.getGenTable().getClassName()+".xml"));
+            }else{
+                zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+entry.getKey()+ File.separator+entity.getGenTable().getClassName()+StringUtils.capitalize(entry.getKey()) +".java"));
+            }
+
+            StringWriter sw = new StringWriter();
+            Map<String, Object> dataModel = GenUtils.getDataModel(entity);
+            GenUtils.render(entry.getValue()+".ftl",dataModel,sw);
+            IOUtils.write(sw.toString(),zip,"UTF-8");
+            IOUtils.closeQuietly(sw);
+            zip.closeEntry();
+        }
+
+
+
+
+        IOUtils.closeQuietly(zip);
+        byte[] data=outputStream.toByteArray();
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment; filename="+entity.getModuleName());
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+
+        IOUtils.write(data, response.getOutputStream());
     }
 }
