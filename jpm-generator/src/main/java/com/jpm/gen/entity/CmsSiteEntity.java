@@ -21,7 +21,7 @@ import com.jpm.common.entity.DataEntity;
  * @author 李杰
  * @version 2018-08-06
  */
-public class CmsSite extends DataEntity<CmsSite,String> {
+public class CmsSiteEntity extends DataEntity<CmsSiteEntity,String> {
 
     private static final long serialVersionUID = 1L;
     private String name;        // 站点名称
@@ -33,11 +33,11 @@ public class CmsSite extends DataEntity<CmsSite,String> {
     private String theme;        // 主题
     private String copyright;        // 版权信息
     private String customIndexView;        // 自定义站点首页视图
-    public CmsSite() {
+    public CmsSiteEntity() {
         super();
     }
 
-    public CmsSite(String id){
+    public CmsSiteEntity(String id){
         super(id);
     }
 

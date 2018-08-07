@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${packageName}.dao.${ClassName}Dao">
+
     <sql id="Base_Column_List">
         <#assign columnField>
             <#list table.cols as c>
@@ -10,6 +11,14 @@
     ${columnField?substring(0, columnField?last_index_of(","))}
     </sql>
 
+
+    <select id="select" resultType="${packageName}.entity.${ClassName}Entity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM ${table.name} a
+
+        WHERE a.id = ${"#"}{id}
+    </select>
 
     <insert id="insert">
         INSERT INTO ${table.name}(
