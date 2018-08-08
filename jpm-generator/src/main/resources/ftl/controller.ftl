@@ -17,7 +17,7 @@ import ${packageName}.${moduleName}.service.${ClassName}Service;
  * @author ${functionAuthor}
  * @version ${functionVersion}
  */
-@Controller
+@RestController
 @RequestMapping("${moduleName}/${className}")
 public class ${ClassName}Controller {
 
@@ -25,14 +25,12 @@ public class ${ClassName}Controller {
     ${ClassName}Service ${className}Service;
 
     @RequestMapping(method = RequestMethod.GET,value = "{id}")
-    @ResponseBody
     public ${ClassName}Entity get(@PathVariable(value="id") String id){
         ${ClassName}Entity entiy = ${className}Service.find(id);
         return entiy;
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "page")
-    @ResponseBody
     public PageInfo page(@RequestParam Map data){
         PageInfo pageInfo = ${className}Service.findPage(data);
         return pageInfo;
@@ -40,28 +38,24 @@ public class ${ClassName}Controller {
 
 
     @RequestMapping(method = RequestMethod.GET,value = "list")
-    @ResponseBody
     public List<${ClassName}Entity> list(@RequestParam Map data){
     List<${ClassName}Entity> list = ${className}Service.findAll(data);
         return list;
     }
 
         @RequestMapping(method = RequestMethod.POST)
-        @ResponseBody
         public int save(@RequestBody @Valid ${ClassName}Entity entity){
 
             return ${className}Service.add(entity);
         }
 
         @RequestMapping(method = RequestMethod.PUT)
-        @ResponseBody
         public int update(@RequestBody @Valid ${ClassName}Entity entity){
 
         return ${className}Service.update(entity);
         }
 
         @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
-        @ResponseBody
         public int delete(@PathVariable(value="id") String[] ids){
 
         return ${className}Service.remove(ids);

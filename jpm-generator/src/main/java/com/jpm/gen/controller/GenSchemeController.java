@@ -9,7 +9,6 @@ import com.jpm.gen.utils.GenUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +24,7 @@ import java.util.zip.ZipOutputStream;
  * @author: 李杰
  * @create: 2018-08-02 16:47
  **/
-@Controller
+@RestController
 @RequestMapping("gen/scheme")
 @ConfigurationProperties
 public class GenSchemeController {
@@ -50,14 +49,12 @@ public class GenSchemeController {
     GenSchemeDao dao;
 
     @RequestMapping(method = RequestMethod.GET,value = "{id}")
-    @ResponseBody
     public GenScheme get(@PathVariable(value="id") String id){
         GenScheme entiy = genSchemeService.find(id);
         return entiy;
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "page")
-    @ResponseBody
     public PageInfo page(@RequestParam Map data){
         PageInfo pageInfo = genSchemeService.findPage(data);
         return pageInfo;
@@ -65,35 +62,30 @@ public class GenSchemeController {
 
 
     @RequestMapping(method = RequestMethod.GET,value = "list")
-    @ResponseBody
     public List<GenScheme> list(@RequestParam Map data){
         List<GenScheme> list = genSchemeService.findAll(data);
         return list;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
     public int save(@RequestBody GenScheme entity){
 
         return genSchemeService.add(entity);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    @ResponseBody
     public int update(@RequestBody GenScheme entity){
 
         return genSchemeService.update(entity);
     }
 
     @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
-    @ResponseBody
     public int delete(@PathVariable(value="id") String[] ids){
 
         return genSchemeService.remove(ids);
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "code")
-    @ResponseBody
     public void code(HttpServletResponse response,@RequestBody GenScheme entity) throws Exception {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
