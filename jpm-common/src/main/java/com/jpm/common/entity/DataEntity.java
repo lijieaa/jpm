@@ -12,23 +12,23 @@ import java.util.Date;
  **/
 public abstract class DataEntity<T,PK extends Serializable> extends BaseEntity<T,PK>{
     protected String remarks;	// 备注
-    protected User createBy;	// 创建者
+    protected UserEntity createBy;	// 创建者
     protected Date createDate;	// 创建日期
-    protected User updateBy;	// 更新者
+    protected UserEntity updateBy;	// 更新者
 
-    public User getCreateBy() {
+    public UserEntity getCreateBy() {
         return createBy;
     }
 
-    public void setCreateBy(User createBy) {
+    public void setCreateBy(UserEntity createBy) {
         this.createBy = createBy;
     }
 
-    public User getUpdateBy() {
+    public UserEntity getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(User updateBy) {
+    public void setUpdateBy(UserEntity updateBy) {
         this.updateBy = updateBy;
     }
 

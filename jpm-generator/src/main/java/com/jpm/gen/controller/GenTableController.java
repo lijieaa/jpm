@@ -79,8 +79,15 @@ public class GenTableController {
     @Autowired
     GenTableService genTableService;
 
-    @RequestMapping(value = "list")
+    @RequestMapping(value = "add")
     public String index(Model model,GenTable genTable){
+        List<GenTable> tableList = genTableService.findTableList(genTable);
+        model.addAttribute("tables",tableList);
+        return "gen/add";
+    }
+
+    @RequestMapping(value = "list")
+    public String list(Model model,GenTable genTable){
         List<GenTable> tableList = genTableService.findTableList(genTable);
         model.addAttribute("tables",tableList);
         return "gen/list";

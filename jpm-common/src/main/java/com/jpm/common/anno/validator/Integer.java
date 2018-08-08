@@ -1,5 +1,6 @@
 package com.jpm.common.anno.validator;
 
+import com.jpm.common.validator.IntegerValidator;
 import com.jpm.common.validator.NumberValidator;
 
 import javax.validation.Constraint;
@@ -14,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { NumberValidator.class })
+@Constraint(validatedBy = { IntegerValidator.class })
 public @interface Integer {
     String message() default "这不是有效的整数格式";
     /**

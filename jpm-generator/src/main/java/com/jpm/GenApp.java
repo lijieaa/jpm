@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.Properties;
 
 @SpringBootApplication
-@MapperScan("com.jpm.gen.dao")
+@MapperScan("com.jpm")
 public class GenApp extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

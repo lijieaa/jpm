@@ -87,21 +87,21 @@ public class GenSchemeController {
 
     @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
     @ResponseBody
-    public String delete(@PathVariable(value="id") String[] ids){
-        genSchemeService.remove(ids);
-        return "ok";
+    public int delete(@PathVariable(value="id") String[] ids){
+
+        return genSchemeService.remove(ids);
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "code")
     @ResponseBody
     public void code(HttpServletResponse response,@RequestBody GenScheme entity) throws Exception {
-        //genSchemeService.remove(ids);
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
 
         for (Map.Entry<String, String> entry : ftl.entrySet()) {
             if(entry.getKey().equals("mapper")){
-                zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+entry.getKey()+ File.separator+entity.getGenTable().getClassName()+".xml"));
+                zip.putNextEntry(new ZipEntry("main/resources/mapper/"+entity.getModuleName()+File.separator+entity.getGenTable().getClassName()+"Dao.xml"));
             }else{
                 zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+entry.getKey()+ File.separator+entity.getGenTable().getClassName()+StringUtils.capitalize(entry.getKey()) +".java"));
             }

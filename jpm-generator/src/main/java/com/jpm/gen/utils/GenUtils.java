@@ -109,7 +109,7 @@ public class GenUtils {
 
             // 用户
            /* if (StringUtils.startsWithIgnoreCase(column.getName(), "user_id")){
-                column.setJavaType(User.class.getName());
+                column.setJavaType(UserEntity.class.getName());
                 column.setJavaField(column.getJavaField().replaceAll("Id", ".id|name"));
                 column.setShowType("userselect");
             }
@@ -128,7 +128,7 @@ public class GenUtils {
             // 创建者、更新者
             else if (StringUtils.startsWithIgnoreCase(column.getName(), "create_by")
                     || StringUtils.startsWithIgnoreCase(column.getName(), "update_by")){
-                column.setJavaType(User.class.getName());
+                column.setJavaType(UserEntity.class.getName());
                 column.setJavaField(column.getJavaField() + ".id");
             }*/
             // 创建时间、更新时间

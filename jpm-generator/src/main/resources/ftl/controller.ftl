@@ -1,18 +1,14 @@
 package ${packageName}.${moduleName}.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.jpm.gen.utils.GenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
 import ${packageName}.${moduleName}.entity.${ClassName}Entity;
-import ${packageName}.${moduleName}.dao.${ClassName}Dao;
 import ${packageName}.${moduleName}.service.${ClassName}Service;
 
 
@@ -52,22 +48,22 @@ public class ${ClassName}Controller {
 
         @RequestMapping(method = RequestMethod.POST)
         @ResponseBody
-        public String save(@RequestBody ${ClassName}Entity entity){
-            ${className}Service.add(entity);
-            return "ok";
+        public int save(@RequestBody @Valid ${ClassName}Entity entity){
+
+            return ${className}Service.add(entity);
         }
 
         @RequestMapping(method = RequestMethod.PUT)
         @ResponseBody
-        public String update(@RequestBody ${ClassName}Entity entity){
-        ${className}Service.update(scheme);
-        return "ok";
+        public int update(@RequestBody @Valid ${ClassName}Entity entity){
+
+        return ${className}Service.update(entity);
         }
 
         @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
         @ResponseBody
-        public String delete(@PathVariable(value="id") String[] ids){
-        ${className}Service.remove(ids);
-        return "ok";
+        public int delete(@PathVariable(value="id") String[] ids){
+
+        return ${className}Service.remove(ids);
         }
         }

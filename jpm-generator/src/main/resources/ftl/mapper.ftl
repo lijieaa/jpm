@@ -13,17 +13,15 @@
 
 
     <select id="select" resultType="${packageName}.${moduleName}.entity.${ClassName}Entity">
-        <![CDATA[
             SELECT
             <include refid="Base_Column_List" />
             FROM ${table.name} a
             WHERE a.id = ${"#"}{id}
-        ]]>
     </select>
 
 
     <select id="selectAll" resultType="${packageName}.${moduleName}.entity.${ClassName}Entity">
-        <![CDATA[
+
         SELECT
         <include refid="Base_Column_List" />
         FROM ${table.name} a
@@ -59,13 +57,13 @@
                 </#if>
             </#list>
         </where>
-        ]]>
+
     </select>
 
 
 
     <insert id="insert">
-        <![CDATA[
+
         INSERT INTO ${table.name}(
 		<#assign insertField>
             <#list table.cols as c>
@@ -85,11 +83,11 @@
         </#assign>
     ${insertJavaField?substring(0, insertJavaField?last_index_of(","))}
         )
-        ]]>
+
     </insert>
 
     <update id="update">
-        <![CDATA[
+
         UPDATE ${table.name} SET
 			<#assign updateField>
                 <#list table.cols as c>
@@ -100,17 +98,17 @@
             </#assign>
     ${updateField?substring(0, updateField?last_index_of(","))}
         WHERE id = ${"#"}{id}
-        ]]>
+
     </update>
 
 
     <delete id="delete" parameterType="java.util.ArrayList">
-        <![CDATA[
+
         delete from ${table.name}
         where id in
         <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
         ${"#"}{item}
         </foreach>
-        ]]>
+
     </delete>
 </mapper>

@@ -1,7 +1,8 @@
 package ${packageName}.${moduleName}.service;
 
 import java.util.List;
-
+import java.util.Map;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +25,7 @@ public class ${ClassName}Service extends CrudService<${ClassName}Dao, ${ClassNam
     }
 
     @Override
-    public ${ClassName}Entity find(${ClassName} entity) {
+    public ${ClassName}Entity find(${ClassName}Entity entity) {
         return super.find(entity);
     }
 

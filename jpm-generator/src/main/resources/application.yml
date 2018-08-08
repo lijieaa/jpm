@@ -1,6 +1,6 @@
 spring:
  profiles:
-   active: gen
+   active: gen,exception
  datasource:
   type: com.alibaba.druid.pool.DruidDataSource
   #mysql配置

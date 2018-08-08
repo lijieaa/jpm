@@ -1,5 +1,6 @@
 package com.jpm.common.anno.validator;
 
+import com.jpm.common.validator.AbcValidator;
 import com.jpm.common.validator.DateValidator;
 
 import javax.validation.Constraint;
@@ -14,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { DateValidator.class })
+@Constraint(validatedBy = { AbcValidator.class })
 public @interface Abc {
     String message() default "字母数字下划线";
     /**

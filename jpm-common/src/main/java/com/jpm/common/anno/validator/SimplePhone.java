@@ -1,6 +1,7 @@
 package com.jpm.common.anno.validator;
 
 import com.jpm.common.validator.DateValidator;
+import com.jpm.common.validator.SimplePhoneValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -14,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { DateValidator.class })
+@Constraint(validatedBy = { SimplePhoneValidator.class })
 public @interface SimplePhone {
     String message() default "固定电话格式不正确";
     /**
