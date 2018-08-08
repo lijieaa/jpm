@@ -73,16 +73,16 @@ public class GenSchemeController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public String save(@RequestBody GenScheme entity){
-        genSchemeService.add(entity);
-        return "ok";
+    public int save(@RequestBody GenScheme entity){
+
+        return genSchemeService.add(entity);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseBody
-    public String update(@RequestBody GenScheme entity){
-        genSchemeService.update(entity);
-        return "ok";
+    public int update(@RequestBody GenScheme entity){
+
+        return genSchemeService.update(entity);
     }
 
     @RequestMapping(method = RequestMethod.DELETE,value = "{id}")
