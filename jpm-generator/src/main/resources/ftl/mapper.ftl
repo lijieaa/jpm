@@ -57,7 +57,9 @@
                 </#if>
             </#list>
         </where>
-
+        <if test="orderByClause!=null">
+            order by ${"$"}{orderByClause}
+        </if>
     </select>
 
 

@@ -4,6 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jpm.common.dao.CrudDao;
 import com.jpm.common.entity.DataEntity;
+import com.jpm.common.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +21,7 @@ import java.util.Map;
  **/
 @Transactional(readOnly = true)
 public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity<T,PK>,PK extends Serializable> extends BaseService {
-
+    private static Logger logger = LoggerFactory.getLogger(CrudService.class);
     /**
      * 持久层对象
      */
@@ -92,6 +95,38 @@ public abstract class CrudService<D extends CrudDao<T ,PK>, T extends DataEntity
             size = Integer.parseInt(sizeStr);
         }
         PageHelper.startPage(num, size);
+        List<T> list = dao.selectAll(data);
+        PageInfo pageInfo = new PageInfo(list);
+        return pageInfo;
+    }
+
+
+    /**
+     * JgGrid分页查询
+     * @param data
+     * @return
+     */
+    public PageInfo findJgGridPage(Map data){
+
+        //分页
+        String page = (String) data.get("page");
+        String rows = (String) data.get("rows");
+        int pageNum = Integer.parseInt(page);
+        int pageSize = Integer.parseInt(rows);
+        PageHelper.startPage(pageNum, pageSize);
+
+        //排序
+        String sidx = (String) data.get("sidx");
+        String sord = (String) data.get("sord");
+        if(null!=sidx&&null!=sord&&!sidx.equals("")&&!sord.equals("")){
+            sidx+=" "+sord;
+            logger.info(sidx);
+
+            String orderByClause = StringUtils.toUnderScoreCase(sidx);
+            logger.info(orderByClause);
+
+            data.put("orderByClause",orderByClause);
+        }
         List<T> list = dao.selectAll(data);
         PageInfo pageInfo = new PageInfo(list);
         return pageInfo;

@@ -1,6 +1,7 @@
 package com.jpm.gen.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.jpm.common.entity.JqGridEntity;
 import com.jpm.common.utils.StringUtils;
 import com.jpm.gen.dao.GenSchemeDao;
 import com.jpm.gen.entity.GenScheme;
@@ -54,12 +55,28 @@ public class GenSchemeController {
         return entiy;
     }
 
+    /**
+     * 普通分页
+     * @param data
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET,value = "page")
     public PageInfo page(@RequestParam Map data){
         PageInfo pageInfo = genSchemeService.findPage(data);
         return pageInfo;
     }
 
+    /**
+     * jggrid表格分页
+     * @param data
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "jggrid")
+    public JqGridEntity<GenScheme> jqGrid(@RequestParam Map data){
+        PageInfo pageInfo = genSchemeService.findJgGridPage(data);
+        JqGridEntity<GenScheme> gridEntity=new JqGridEntity<GenScheme>(pageInfo.getPageNum(),pageInfo.getPages(),pageInfo.getTotal(),pageInfo.getList());
+        return gridEntity;
+    }
 
     @RequestMapping(method = RequestMethod.GET,value = "list")
     public List<GenScheme> list(@RequestParam Map data){

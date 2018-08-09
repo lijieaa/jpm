@@ -183,7 +183,7 @@ div.tablediv > .table-bordered {
 	outline-style: none;
 }
 .ui-jqgrid tr.jqgrow td {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	white-space: pre;
 	padding-right: 2px;
 }

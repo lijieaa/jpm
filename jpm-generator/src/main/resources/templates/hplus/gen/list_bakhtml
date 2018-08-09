@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" th:href="@{/hplus/favicon.ico}">
+    <link th:href="@{/hplus/css/bootstrap.min.css?v=3.3.6}" rel="stylesheet">
+    <link th:href="@{/hplus/css/font-awesome.css?v=4.4.0}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/iCheck/custom.css}" rel="stylesheet">
+    <link th:href="@{/hplus/css/plugins/chosen/chosen.css}" rel="stylesheet">
+    <link th:href="@{/hplus/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+
+
+    <link th:href="@{/hplus/css/plugins/colorpicker/css/bootstrap-colorpicker.min.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/cropper/cropper.min.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/switchery/switchery.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/nouslider/jquery.nouislider.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/ionRangeSlider/ion.rangeSlider.css}" rel="stylesheet">
+    <link th:href="@{/hplus/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/plugins/clockpicker/clockpicker.css}" rel="stylesheet">
+    <!-- jqgrid-->
+    <link th:href="@{/hplus/css/plugins/jqgrid/ui.jqgrid.css?0820}" rel="stylesheet">
+
+    <link th:href="@{/hplus/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/hplus/css/style.css?v=4.1.0}" rel="stylesheet">
+    <style>
+        .ui-th-column,.ui-th-ltr{
+            text-align: center;
+        }
+        .ibox-header{
+            height: 50px;
+            background: #fff;
+        }
+        .ibox-title{
+            /*border-top-width: 0px!important;margin-top: 5px;*/
+            border-width: 0px 0px 0!important;
+        }
+        .new-add a{
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            display: inline-block;
+            border-radius: 5px;
+            margin-top: 12px;
+            background: #eeeeee;
+            color: #444;
+            border-color: #ddd;
+            margin-right: 10px;
+        }
+        .new-add a i{
+            margin-right: 7px;
+        }
+        .content-form{
+        }
+        .inpStyle{
+            height: 30px;
+            width: 180px;
+            margin-left: 8px;
+        }
+        .btn-lc{
+            height: 31px;
+            line-height: 17px;
+        }
+        .table-btn{
+            font-size: 14px;
+            padding: 0 5px;
+            cursor: pointer;
+        }
+        .table-green-btn{
+            color:#69aa46;
+        }
+        .table-red-btn{
+            color:#dd5a43;
+        }
+        .table-blue-btn{
+            color:#3c8dbc;
+        }
+
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="ibox">
+              <div class="ibox-header">
+                  <div class="ibox-title pull-left" >
+                      <h5>生成配置管理</h5>
+                  </div>
+                  <div class="box-tools pull-right new-add" title="新增生成配置"><a href="/gen/add" data-index="5" class="J_menuItem"><i class="fa fa-plus"></i>新增</a></div>
+              </div>
+              <div class="ibox-content">
+                  <div class="content-form">
+                      <label>表名:</label><input type="text" id="tableName" class="inpStyle">
+                      <label style="margin-left: 12px;">表说明:</label><input type="text" id="tableInfo" class="inpStyle">
+                      <button class="btn btn-success btn-lc btn-look">查询</button>
+                      <button class="btn btn-default btn-lc btn-reset">重置</button>
+                  </div>
+                  <div class="jqGrid_wrapper" style="width:100%;height: 100%;margin-top: 20px;">
+                      <table id="table"></table>
+                      <div id="pager"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script th:src="@{/hplus/js/jquery.min.js?v=2.1.4}"></script>
+<script th:src="@{/hplus/js/bootstrap.min.js?v=3.3.6}"></script>
+
+
+<!-- 自定义js -->
+<script th:src="@{/hplus/js/content.js?v=1.0.0}"></script>
+
+
+
+<!-- Steps -->
+<script th:src="@{/hplus/js/plugins/staps/jquery.steps.min.js}"></script>
+
+
+<!-- Jquery Validate -->
+<script th:src="@{/hplus/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/hplus/js/plugins/validate/messages_zh.min.js}"></script>
+
+
+<!-- JSKnob -->
+<script th:src="@{/hplus/js/plugins/jsKnob/jquery.knob.js}"></script>
+
+<!-- Input Mask-->
+<script th:src="@{/hplus/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+
+<!-- Data picker -->
+<script th:src="@{/hplus/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+
+<!-- Prettyfile -->
+<script th:src="@{/hplus/js/plugins/prettyfile/bootstrap-prettyfile.js}"></script>
+
+<!-- NouSlider -->
+<script th:src="@{/hplus/js/plugins/nouslider/jquery.nouislider.min.js}"></script>
+
+<!-- Switchery -->
+<script th:src="@{/hplus/js/plugins/switchery/switchery.js}"></script>
+
+<!-- IonRangeSlider -->
+<script th:src="@{/hplus/js/plugins/ionRangeSlider/ion.rangeSlider.min.js}"></script>
+
+<!-- iCheck -->
+<script th:src="@{/hplus/js/plugins/iCheck/icheck.min.js}"></script>
+
+<!-- MENU -->
+<script th:src="@{/hplus/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+
+<!-- Color picker -->
+<script th:src="@{/hplus/js/plugins/colorpicker/bootstrap-colorpicker.min.js}"></script>
+
+<!-- Clock picker -->
+<script th:src="@{/hplus/js/plugins/clockpicker/clockpicker.js}"></script>
+
+<!-- Image cropper -->
+<script th:src="@{/hplus/js/plugins/cropper/cropper.min.js}"></script>
+
+<!-- jqGrid -->
+<script th:src="@{/hplus/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820}"></script>
+<script th:src="@{/hplus/js/plugins/jqgrid/jquery.jqGrid.min.js?0820}"></script>
+
+
+<!-- Chosen -->
+<script th:src="@{/hplus/js/plugins/chosen/chosen.jquery.js}"></script>
+
+
+<script th:inline="javascript">
+    var contextPath = /*[[@{/}]]*/;
+    $.jgrid.defaults.styleUI = 'Bootstrap';
+   $("#table").jqGrid({
+       url: contextPath + "gen/scheme/jggrid",
+       datatype: "json",
+       jsonReader:{
+           root: "rslt.rows",
+           page: "rslt.page",//当前页
+           total: "rslt.total",//总页数
+           records: "rslt.records" //总记录数
+
+       },
+       multiSort: true,//多列排序
+       height:"auto",
+       rownumbers: true,
+       loadtext: "正在加载数据...",
+       mtype:"GET",
+       colNames: [ '表名', '表说明',  '功能作者', '创建时间', '操作'],
+       colModel: [
+           {
+               name: 'name',
+               align: "center",
+               index: 'name',
+               width:'120',
+               sortable : false
+           },
+           {
+               name: 'functionName',
+               index: 'functionName',
+               align: "center",
+               width:'120'
+           },
+           {
+               name: 'functionAuthor',
+               index: 'functionAuthor',
+               align: "center",
+               sorttype: "float"
+
+           },
+           {
+               name: 'createDate',
+               index: 'createDate',
+               align: "center",
+               sorttype: "float"
+           },
+           {
+               name: '',
+               index: '',
+               align: "center",
+               formatter:function (data,option,rowObject) {
+                   var html = "<span class='table-btn table-green-btn' title='编辑生成配置' id='edit-deploy'><i class='fa fa-pencil'></i></span>" +
+                       "<span class='table-btn table-red-btn' title='删除生成配置'  id='delete-deploy'><i class='fa fa-trash-o'></i></span>"+
+                       "<span class='table-btn table-blue-btn' title='生成代码' id='make-deploy'><i class='fa fa-bug'></i></span>"+
+                       "<span class='table-btn table-blue-btn' title='创建菜单'  id='create-deploy'><i class='fa fa-bars'></i></span>";
+                   return html;
+               }
+
+           }
+       ],
+       caption: null,
+       altRows:true,
+       sortable:false,
+       pager: '#pager',
+       rowNum:1,//一页显示多少条
+       rowList : [ 1, 2, 3 ],//可供用户选择一页显示多少条
+       viewrecords: true,
+       loadComplete:function () {
+           $("#table").setGridWidth($(window).width()*0.95);
+       }
+   }).navGrid("#pager",{refresh:true,edit:false,search:false,add:false,view:false, del:false});
+
+   // 根据查询条件刷新表格
+    function RefreshTable(){
+        var filter = {
+            "functionName":$.trim($("#tableName").val()),
+            "functionNameSimple":$.trim($("#tableInfo").val())
+        };
+        refreshTable(filter);
+    }
+    //点击查询查找指定搜索内容
+    $(document).on("click",".btn-look",function () {
+        RefreshTable();
+    });
+    //点击重置操作
+    $(document).on("click",".btn-reset",function () {
+        $("#tableName").val("");
+        $("#tableInfo").val("");
+        RefreshTable();
+    });
+    //表格刷新
+    function refreshTable(dataType){
+        $("#table").jqGrid('setGridParam',{
+            postData : dataType,
+            page:1,
+            datatype:'json'
+        }).trigger('reloadGrid');
+    }
+
+    $(window).bind('resize', function () {
+        var width = $('.jqGrid_wrapper').width();
+        $('#table').setGridWidth(width);
+    });
+</script>
+
+
+</body>
+
+</html>

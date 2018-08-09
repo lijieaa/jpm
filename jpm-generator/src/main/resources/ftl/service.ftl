@@ -53,6 +53,11 @@ public class ${ClassName}Service extends CrudService<${ClassName}Dao, ${ClassNam
     }
 
     @Override
+    public PageInfo findJgGridPage(Map data) {
+        return super.findJgGridPage(data);
+    }
+
+    @Override
     public List<${ClassName}Entity> findAll(Map data) {
         return super.findAll(data);
     }

@@ -2,11 +2,11 @@ package ${packageName}.${moduleName}.controller;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import com.jpm.common.entity.JqGridEntity;
 
 import ${packageName}.${moduleName}.entity.${ClassName}Entity;
 import ${packageName}.${moduleName}.service.${ClassName}Service;
@@ -35,6 +35,19 @@ public class ${ClassName}Controller {
         PageInfo pageInfo = ${className}Service.findPage(data);
         return pageInfo;
     }
+
+
+    /**
+     * jggrid表格分页
+     * @param data
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "jggrid")
+    public JqGridEntity<${ClassName}Entity> jqGrid(@RequestParam Map data){
+    PageInfo pageInfo = ${className}Service.findJgGridPage(data);
+    JqGridEntity<${ClassName}Entity> gridEntity=new JqGridEntity<${ClassName}Entity>(pageInfo.getPageNum(),pageInfo.getPages(),pageInfo.getTotal(),pageInfo.getList());
+        return gridEntity;
+        }
 
 
     @RequestMapping(method = RequestMethod.GET,value = "list")

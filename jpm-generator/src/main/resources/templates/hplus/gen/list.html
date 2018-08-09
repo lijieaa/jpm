@@ -10,119 +10,53 @@
     <link rel="shortcut icon" th:href="@{/hplus/favicon.ico}">
     <link th:href="@{/hplus/css/bootstrap.min.css?v=3.3.6}" rel="stylesheet">
     <link th:href="@{/hplus/css/font-awesome.css?v=4.4.0}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/iCheck/custom.css}" rel="stylesheet">
-    <link th:href="@{/hplus/css/plugins/chosen/chosen.css}" rel="stylesheet">
-    <link th:href="@{/hplus/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
-
-
-    <link th:href="@{/hplus/css/plugins/colorpicker/css/bootstrap-colorpicker.min.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/cropper/cropper.min.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/switchery/switchery.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/nouslider/jquery.nouislider.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/ionRangeSlider/ion.rangeSlider.css}" rel="stylesheet">
-    <link th:href="@{/hplus/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
-
-    <link th:href="@{/hplus/css/plugins/clockpicker/clockpicker.css}" rel="stylesheet">
     <!-- jqgrid-->
     <link th:href="@{/hplus/css/plugins/jqgrid/ui.jqgrid.css?0820}" rel="stylesheet">
-
     <link th:href="@{/hplus/css/animate.css}" rel="stylesheet">
     <link th:href="@{/hplus/css/style.css?v=4.1.0}" rel="stylesheet">
+
 </head>
 
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-sm-12">
-            <div class="ibox">
+            <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>代码生成步骤</h5>
+                    <h5>基本面板</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link ">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="ibox-content">
-
-                    <form id="form" action="form_wizard.html#" class="wizard-big">
-                        <h1>选择表</h1>
-                        <section>
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <label>选择数据表:</label>
-                                        <select name="tableName" id="tableName" data-placeholder="选择数据表..."
-                                                class="chosen-select" style="width:350px;" tabindex="2">
-                                            <option value="">选择数据表</option>
-                                            <option th:each="t : ${tables}"
-                                                    th:value="${t.name}" th:text="${t.name}+':'+${t.comments}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="text-center">
-                                        <div style="margin-top: 20px">
-                                            <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="row">
+                        <form role="form" class="form-inline" id="search-form">
+                            <div class="form-group">
+                                <label for="functionName" class="sr-only">表名</label>
+                                <input type="text" placeholder="表名" id="functionName" name="functionName" class="form-control">
                             </div>
-                        </section>
-                        <h1>基本信息</h1>
-                        <section>
-                            <h2>基本信息</h2>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>表名 *</label>
-                                        <input id="tname" name="tname" type="text" class="form-control required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>实体类名称 *</label>
-                                        <input id="ename" name="ename" type="text" class="form-control required">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label> 表说明 *</label>
-                                        <input id="comments" name="comments" type="text" class="form-control required">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> 功能作者 *</label>
-                                        <input id="author" name="author" type="text" class="form-control required">
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="functionNameSimple" class="sr-only">表说明</label>
+                                <input type="text" placeholder="表说明" id="functionNameSimple" name="functionNameSimple" class="form-control">
                             </div>
-                        </section>
-
-                        <h1>字段信息</h1>
-                        <section>
-                            <div class="jqGrid_wrapper" style="width:1200px">
-                                <table id="table_list_1"></table>
-                                <div id="pager_list_1"></div>
-                            </div>
-                        </section>
-
-                        <h1>生成信息</h1>
-                        <section>
-                            <h2>条款</h2>
-                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                            <label for="acceptTerms">我同意注册条款</label>
-                        </section>
-                    </form>
+                            <button class="btn btn-w-m btn-success" type="button" id="search">查询</button>
+                            <button class="btn btn-white" type="button" id="reset">重置</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="jqGrid_wrapper">
-            <table id="table_list_2"></table>
-            <div id="pager_list_2"></div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="jqGrid_wrapper">
+                            <table id="table"></table>
+                            <div id="pager"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -136,556 +70,115 @@
 <script th:src="@{/hplus/js/content.js?v=1.0.0}"></script>
 
 
-<!-- Chosen -->
-<script th:src="@{/hplus/js/plugins/chosen/chosen.jquery.js}"></script>
-
-<!-- Steps -->
-<script th:src="@{/hplus/js/plugins/staps/jquery.steps.min.js}"></script>
-
-<!-- Jquery Validate -->
-<script th:src="@{/hplus/js/plugins/validate/jquery.validate.min.js}"></script>
-<script th:src="@{/hplus/js/plugins/validate/messages_zh.min.js}"></script>
-
-
-<!-- JSKnob -->
-<script th:src="@{/hplus/js/plugins/jsKnob/jquery.knob.js}"></script>
-
-<!-- Input Mask-->
-<script th:src="@{/hplus/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
-
-<!-- Data picker -->
-<script th:src="@{/hplus/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
-
-<!-- Prettyfile -->
-<script th:src="@{/hplus/js/plugins/prettyfile/bootstrap-prettyfile.js}"></script>
-
-<!-- NouSlider -->
-<script th:src="@{/hplus/js/plugins/nouslider/jquery.nouislider.min.js}"></script>
-
-<!-- Switchery -->
-<script th:src="@{/hplus/js/plugins/switchery/switchery.js}"></script>
-
-<!-- IonRangeSlider -->
-<script th:src="@{/hplus/js/plugins/ionRangeSlider/ion.rangeSlider.min.js}"></script>
-
-<!-- iCheck -->
-<script th:src="@{/hplus/js/plugins/iCheck/icheck.min.js}"></script>
-
-<!-- MENU -->
-<script th:src="@{/hplus/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
-
-<!-- Color picker -->
-<script th:src="@{/hplus/js/plugins/colorpicker/bootstrap-colorpicker.min.js}"></script>
-
-<!-- Clock picker -->
-<script th:src="@{/hplus/js/plugins/clockpicker/clockpicker.js}"></script>
-
-<!-- Image cropper -->
-<script th:src="@{/hplus/js/plugins/cropper/cropper.min.js}"></script>
-
 <!-- jqGrid -->
 <script th:src="@{/hplus/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820}"></script>
 <script th:src="@{/hplus/js/plugins/jqgrid/jquery.jqGrid.min.js?0820}"></script>
 
+<script th:src="@{/hplus/js/globe.js}"></script>
+
 
 <script th:inline="javascript">
     var contextPath = /*[[@{/}]]*/;
-    $(document).ready(function () {
-        $("#wizard").steps();
-        $("#form").steps({
-            bodyTag: "section",
-            onStepChanging: function (event, currentIndex, newIndex) {
-                console.log(newIndex);
-                //基本信息
-                if (newIndex == 1) {
-                    var tname = $("#tableName").val();
-                    $.ajax({
-                        url: contextPath + "gen/basic?tname=" + tname,
-                        method: "get",
-                        contentType: "application/json",
-                        dataType: "json",
-                        success: function (data) {
-                            console.log(data);
-                            $("#tname").val(data.tname);
-                            $("#ename").val(data.ename);
-                            $("#comments").val(data.comments);
-                        },
-                        error: function (data) {
-                            alert("获取数据失败！")
-                        }
-                    })
-                } else if (newIndex == 2) {  //字段信息
-                    //$('.dataTables-example').dataTable();
-                    $.jgrid.defaults.styleUI = 'Bootstrap';
-                    // Examle data for jqGrid
-                    var mydata = [
-                        {
-                            id: "1",
-                            invdate: "2010-05-24",
-                            name: "test",
-                            note: "note",
-                            tax: "10.00",
-                            total: "2111.00"
-                        },
-                        {
-                            id: "2",
-                            invdate: "2010-05-25",
-                            name: "test2",
-                            note: "note2",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "3",
-                            invdate: "2007-09-01",
-                            name: "test3",
-                            note: "note3",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "4",
-                            invdate: "2007-10-04",
-                            name: "test",
-                            note: "note",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "5",
-                            invdate: "2007-10-05",
-                            name: "test2",
-                            note: "note2",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "6",
-                            invdate: "2007-09-06",
-                            name: "test3",
-                            note: "note3",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "7",
-                            invdate: "2007-10-04",
-                            name: "test",
-                            note: "note",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "8",
-                            invdate: "2007-10-03",
-                            name: "test2",
-                            note: "note2",
-                            amount: "300.00",
-                            tax: "21.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "9",
-                            invdate: "2007-09-01",
-                            name: "test3",
-                            note: "note3",
-                            amount: "400.00",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "11",
-                            invdate: "2007-10-01",
-                            name: "test",
-                            note: "note",
-                            amount: "200.00",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "12",
-                            invdate: "2007-10-02",
-                            name: "test2",
-                            note: "note2",
-                            amount: "300.00",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "13",
-                            invdate: "2007-09-01",
-                            name: "test3",
-                            note: "note3",
-                            amount: "400.00",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "14",
-                            invdate: "2007-10-04",
-                            name: "test",
-                            note: "note",
-                            amount: "200.00",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "15",
-                            invdate: "2007-10-05",
-                            name: "test2",
-                            note: "note2",
-                            amount: "300.00",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "16",
-                            invdate: "2007-09-06",
-                            name: "test3",
-                            note: "note3",
-                            amount: "400.00",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "17",
-                            invdate: "2007-10-04",
-                            name: "test",
-                            note: "note",
-                            amount: "200.00",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "18",
-                            invdate: "2007-10-03",
-                            name: "test2",
-                            note: "note2",
-                            amount: "300.00",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "19",
-                            invdate: "2007-09-01",
-                            name: "test3",
-                            note: "note3",
-                            amount: "400.00",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "21",
-                            invdate: "2007-10-01",
-                            name: "test",
-                            note: "note",
-                            amount: "200.00",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "22",
-                            invdate: "2007-10-02",
-                            name: "test2",
-                            note: "note2",
-                            amount: "300.00",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "23",
-                            invdate: "2007-09-01",
-                            name: "test3",
-                            note: "note3",
-                            amount: "400.00",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "24",
-                            invdate: "2007-10-04",
-                            name: "test",
-                            note: "note",
-                            amount: "200.00",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "25",
-                            invdate: "2007-10-05",
-                            name: "test2",
-                            note: "note2",
-                            amount: "300.00",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "26",
-                            invdate: "2007-09-06",
-                            name: "test3",
-                            note: "note3",
-                            amount: "400.00",
-                            tax: "30.00",
-                            total: "430.00"
-                        },
-                        {
-                            id: "27",
-                            invdate: "2007-10-04",
-                            name: "test",
-                            note: "note",
-                            amount: "200.00",
-                            tax: "10.00",
-                            total: "210.00"
-                        },
-                        {
-                            id: "28",
-                            invdate: "2007-10-03",
-                            name: "test2",
-                            note: "note2",
-                            amount: "300.00",
-                            tax: "20.00",
-                            total: "320.00"
-                        },
-                        {
-                            id: "29",
-                            invdate: "2007-09-01",
-                            name: "test3",
-                            note: "note3",
-                            amount: "400.00",
-                            tax: "30.00",
-                            total: "430.00"
-                        }
-                    ];
-                    $("#table_list_1").jqGrid({
-                        data: mydata,
-                        datatype: "local",
-                        height: 250,
-                        autowidth: true,
-                        shrinkToFit: true,
-                        rowNum: 14,
-                        rowList: [10, 20, 30],
-                        colNames: ['序号', '日期', '客户', '金额', '运费', '总额', '备注'],
-                        colModel: [
-                            {
-                                name: 'id',
-                                index: 'id',
-                                width: 60,
-                                sorttype: "int"
-                            },
-                            {
-                                name: 'invdate',
-                                index: 'invdate',
-                                width: 90,
-                                sorttype: "date",
-                                formatter: "date"
-                            },
-                            {
-                                name: 'name',
-                                index: 'name',
-                                width: 100
-                            },
-                            {
-                                name: 'amount',
-                                index: 'amount',
-                                width: 80,
-                                align: "right",
-                                sorttype: "float",
-                                formatter: "number"
-                            },
-                            {
-                                name: 'tax',
-                                index: 'tax',
-                                width: 80,
-                                align: "right",
-                                sorttype: "float"
-                            },
-                            {
-                                name: 'total',
-                                index: 'total',
-                                //width: 80,
-                                align: "right",
-                                sorttype: "float"
-                            },
-                            {
-                                name: 'note',
-                                index: 'note',
-                                width: 150,
-                                sortable: false
-                            }
-                        ],
-                        pager: "#pager_list_1",
-                        viewrecords: true,
-                        caption: "jqGrid 示例1",
-                        hidegrid: false
-                    });
-                    $("#table_list_2").jqGrid({
-                        data: mydata,
-                        datatype: "local",
-                        height: 250,
-                        autowidth: true,
-                        shrinkToFit: true,
-                        rowNum: 14,
-                        rowList: [10, 20, 30],
-                        colNames: ['序号', '日期', '客户', '金额', '运费', '总额', '备注'],
-                        colModel: [
-                            {
-                                name: 'id',
-                                index: 'id',
-                                width: 60,
-                                sorttype: "int"
-                            },
-                            {
-                                name: 'invdate',
-                                index: 'invdate',
-                                width: 90,
-                                sorttype: "date",
-                                formatter: "date"
-                            },
-                            {
-                                name: 'name',
-                                index: 'name',
-                                width: 100
-                            },
-                            {
-                                name: 'amount',
-                                index: 'amount',
-                                width: 80,
-                                align: "right",
-                                sorttype: "float",
-                                formatter: "number"
-                            },
-                            {
-                                name: 'tax',
-                                index: 'tax',
-                                width: 80,
-                                align: "right",
-                                sorttype: "float"
-                            },
-                            {
-                                name: 'total',
-                                index: 'total',
-                                width: 80,
-                                align: "right",
-                                sorttype: "float"
-                            },
-                            {
-                                name: 'note',
-                                index: 'note',
-                                width: 150,
-                                sortable: false
-                            }
-                        ],
-                        pager: "#pager_list_2",
-                        viewrecords: true,
-                        caption: "jqGrid 示例1",
-                        hidegrid: false
-                    });
-                    var tname = $("#tableName").val();
-                    $.ajax({
-                        url: contextPath + "gen/fields?tname=" + tname,
-                        method: "get",
-                        contentType: "application/json",
-                        dataType: "json",
-                        success: function (data) {
-                            console.log(data);
+    $.jgrid.defaults.styleUI = 'Bootstrap';
+    $("#table").jqGrid({
+        url: contextPath + "gen/scheme/jggrid",
+        datatype: "json",
+        jsonReader: {
+            root: "rslt.rows",
+            page: "rslt.page",//当前页
+            total: "rslt.total",//总页数
+            records: "rslt.records" //总记录数
 
-                        },
-                        error: function (data) {
-                            alert("获取数据失败！")
-                        }
-                    })
-                }
-
-                // Always allow going backward even if the current step contains invalid fields!
-                if (currentIndex > newIndex) {
-                    return true;
-                }
-
-                // Forbid suppressing "Warning" step if the user is to young
-                if (newIndex === 3 && Number($("#age").val()) < 18) {
-                    return false;
-                }
-
-                var form = $(this);
-
-                // Clean up if user went backward before
-                if (currentIndex < newIndex) {
-                    // To remove error styles
-                    $(".body:eq(" + newIndex + ") label.error", form).remove();
-                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
-                }
-
-                // Disable validation on fields that are disabled or hidden.
-                form.validate().settings.ignore = ":disabled,:hidden:not(select)";
-
-                // Start validation; Prevent going forward if false
-                return form.valid();
+        },
+        multiSort: true,//多列排序
+        height: "auto",
+        rownumbers: true,
+        mtype: "GET",
+        colNames: ['表名', '表说明', '功能作者', '创建时间', '操作'],
+        colModel: [
+            {
+                name: 'name',
+                align: "center",
+                index: 'name'
             },
-            onStepChanged: function (event, currentIndex, priorIndex) {
-                // Suppress (skip) "Warning" step if the user is old enough.
-                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
-                    $(this).steps("next");
+            {
+                name: 'functionName',
+                index: 'functionName',
+                align: "center"
+            },
+            {
+                name: 'functionAuthor',
+                index: 'functionAuthor',
+                align: "center",
+                sorttype: "float"
+
+            },
+            {
+                name: 'createDate',
+                index: 'createDate',
+                align: "center",
+                sorttype: "float"
+            },
+            {
+                name: '',
+                index: '',
+                align: "center",
+                sortable:false,
+                formatter: function (data, option, rowObject) {
+                    var html = "<a class='btn btn-white btn-bitbucket' title='编辑生成配置' id='edit-deploy'><i class='fa fa-pencil'></i></a>" +
+                        "<a class='btn btn-white btn-bitbucket' title='删除生成配置'  id='delete-deploy'><i class='fa fa-trash-o'></i></a>" +
+                        "<a class='btn btn-white btn-bitbucket' title='生成代码' id='make-deploy'><i class='fa fa-bug'></i></a>";
+                    return html;
                 }
 
-                // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
-                if (currentIndex === 2 && priorIndex === 3) {
-                    $(this).steps("previous");
-                }
-            },
-            onFinishing: function (event, currentIndex) {
-                var form = $(this);
-
-                // Disable validation on fields that are disabled.
-                // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
-                form.validate().settings.ignore = ":disabled";
-
-                // Start validation; Prevent form submission if false
-                return form.valid();
-            },
-            onFinished: function (event, currentIndex) {
-                var form = $(this);
-
-                // Submit form input
-                form.submit();
             }
-        }).validate({
-            errorPlacement: function (error, element) {
-                element.before(error);
-            },
-            rules: {
-                tableName: {
-                    required: true
-                }
-            }
-        });
-
-        var config = {
-            '.chosen-select': {},
-            '.chosen-select-deselect': {
-                allow_single_deselect: true
-            },
-            '.chosen-select-no-single': {
-                disable_search_threshold: 10
-            },
-            '.chosen-select-no-results': {
-                no_results_text: 'Oops, nothing found!'
-            },
-            '.chosen-select-width': {
-                width: "95%"
-            }
+        ],
+        caption: null,
+        altRows: true,
+        sortable: false,
+        pager: '#pager',
+        rowNum: 1,//一页显示多少条
+        rowList: [1, 2, 3],//可供用户选择一页显示多少条
+        viewrecords: true,
+        loadComplete: function () {
+            $("#table").setGridWidth($(window).width() * 0.95);
         }
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
+    }).navGrid("#pager", {refresh: true, edit: false, search: false, add: false, view: false, del: false});
 
-        // Add responsive to jqGrid
-        $(window).bind('resize', function () {
-            var width = $('.jqGrid_wrapper').width();
-            //$('#table_list_1').setGridWidth(width);
-            //$('#table_list_2').setGridWidth(width);
-        });
+    // 根据查询条件刷新表格
+    function RefreshTable() {
+        var formData = $("#search-form").serializeObject();
+        refreshTable(formData);
+    }
+
+    //点击查询查找指定搜索内容
+    $(document).on("click", "#search", function () {
+
+        RefreshTable();
+    });
+    //点击重置操作
+    $(document).on("click", "#reset", function () {
+        $("#search-form input").val("");
+        RefreshTable();
+    });
+
+    //表格刷新
+    function refreshTable(dataType) {
+        $("#table").jqGrid('setGridParam', {
+            postData: dataType,
+            page: 1,
+            datatype: 'json'
+        }).trigger('reloadGrid');
+    }
+
+
+    //当窗口改变时设置表自动适应
+    $(window).bind('resize', function () {
+        var width = $('.jqGrid_wrapper').width();
+        $('#table').setGridWidth(width);
     });
 </script>
+
 
 </body>
 

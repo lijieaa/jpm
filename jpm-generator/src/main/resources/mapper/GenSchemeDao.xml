@@ -27,6 +27,17 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM gen_scheme a
+		<where>
+			<if test="functionName != null and functionName != ''">
+				AND a.name LIKE
+				<if test="_databaseId == 'oracle'">'%'||#{functionName}||'%'</if>
+				<if test="_databaseId == 'mssql'">'%'+#{functionName}+'%'</if>
+				<if test="_databaseId == 'mysql'">concat('%',#{functionName},'%')</if>
+			</if>
+		</where>
+		<if test="orderByClause!=null">
+			order by ${orderByClause}
+		</if>
 	</select>
 	
 	<insert id="insert">
