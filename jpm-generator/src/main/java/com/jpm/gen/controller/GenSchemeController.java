@@ -46,9 +46,6 @@ public class GenSchemeController {
     GenSchemeService genSchemeService;
 
 
-    @Autowired
-    GenSchemeDao dao;
-
     @RequestMapping(method = RequestMethod.GET,value = "{id}")
     public GenScheme get(@PathVariable(value="id") String id){
         GenScheme entiy = genSchemeService.find(id);
@@ -103,7 +100,7 @@ public class GenSchemeController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "code")
-    public void code(HttpServletResponse response,@RequestBody GenScheme entity) throws Exception {
+    public void code(HttpServletResponse response,GenScheme entity) throws Exception {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
@@ -111,6 +108,8 @@ public class GenSchemeController {
         for (Map.Entry<String, String> entry : ftl.entrySet()) {
             if(entry.getKey().equals("mapper")){
                 zip.putNextEntry(new ZipEntry("main/resources/mapper/"+entity.getModuleName()+File.separator+entity.getGenTable().getClassName()+"Dao.xml"));
+            }else if(entry.getValue().indexOf("view")>-1){
+                zip.putNextEntry(new ZipEntry("main/resources/templates/"+entity.getModuleName()+File.separator+StringUtils.toUnderScoreCase(entity.getGenTable().getClassName())+"_"+entry.getKey()+".html"));
             }else{
                 zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+entry.getKey()+ File.separator+entity.getGenTable().getClassName()+StringUtils.capitalize(entry.getKey()) +".java"));
             }

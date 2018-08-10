@@ -51,3 +51,6 @@ ftl:
   dao: dao
   service: service
   controller: controller
+  list: view/hplus/list
+  add: view/hplus/add
+  detail: view/hplus/detail

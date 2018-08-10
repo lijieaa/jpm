@@ -23,7 +23,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>基本面板</h5>
+                    <h5>生成配置管理</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link ">
                             <i class="fa fa-chevron-up"></i>
@@ -42,12 +42,17 @@
                                 <input type="text" placeholder="表说明" id="functionNameSimple" name="functionNameSimple" class="form-control">
                             </div>
                             <button class="btn btn-w-m btn-success" type="button" id="search">查询</button>
-                            <button class="btn btn-white" type="button" id="reset">重置</button>
+                            <button class="btn btn-w-m btn-success" type="button" id="reset">重置</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        <button class="btn btn-w-m btn-success">新增</button>
+                    </div>
+                </div>
                 <div class="ibox-content">
                     <div class="row">
                         <div class="jqGrid_wrapper">
@@ -98,31 +103,29 @@
         colModel: [
             {
                 name: 'name',
-                align: "center",
+                align: "left",
                 index: 'name'
             },
             {
                 name: 'functionName',
                 index: 'functionName',
-                align: "center"
+                align: "left"
             },
             {
                 name: 'functionAuthor',
                 index: 'functionAuthor',
-                align: "center",
-                sorttype: "float"
+                align: "left"
 
             },
             {
                 name: 'createDate',
                 index: 'createDate',
-                align: "center",
-                sorttype: "float"
+                align: "left"
             },
             {
                 name: '',
                 index: '',
-                align: "center",
+                align: "left",
                 sortable:false,
                 formatter: function (data, option, rowObject) {
                     var html = "<a class='btn btn-white btn-bitbucket' title='编辑生成配置' id='edit-deploy'><i class='fa fa-pencil'></i></a>" +
@@ -135,7 +138,6 @@
         ],
         caption: null,
         altRows: true,
-        sortable: false,
         pager: '#pager',
         rowNum: 1,//一页显示多少条
         rowList: [1, 2, 3],//可供用户选择一页显示多少条
@@ -153,7 +155,6 @@
 
     //点击查询查找指定搜索内容
     $(document).on("click", "#search", function () {
-
         RefreshTable();
     });
     //点击重置操作
@@ -170,7 +171,6 @@
             datatype: 'json'
         }).trigger('reloadGrid');
     }
-
 
     //当窗口改变时设置表自动适应
     $(window).bind('resize', function () {
