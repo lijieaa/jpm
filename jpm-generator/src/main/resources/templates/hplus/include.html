@@ -1,7 +1,29 @@
 <head th:fragment="header">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" th:href="@{/hplus/favicon.ico}">
+    <link th:href="@{/hplus/css/bootstrap.min.css?v=3.3.6}" rel="stylesheet">
+    <link th:href="@{/hplus/css/font-awesome.css?v=4.4.0}" rel="stylesheet">
+    <!-- jqgrid-->
+    <link th:href="@{/hplus/css/plugins/jqgrid/ui.jqgrid.css?0820}" rel="stylesheet">
+    <link th:href="@{/hplus/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/hplus/css/style.css?v=4.1.0}" rel="stylesheet">
 </head>
 
 <div th:fragment="footer">
-
+    <!-- 全局js -->
+    <script th:src="@{/hplus/js/jquery.min.js?v=2.1.4}"></script>
+    <script th:src="@{/hplus/js/bootstrap.min.js?v=3.3.6}"></script>
+    <!-- 自定义js -->
+    <script th:src="@{/hplus/js/content.js?v=1.0.0}"></script>
+    <!-- jqGrid -->
+    <script th:src="@{/hplus/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820}"></script>
+    <script th:src="@{/hplus/js/plugins/jqgrid/jquery.jqGrid.min.js?0820}"></script>
+    <script th:src="@{/hplus/js/globe.js}"></script>
+    <script th:inline="javascript">
+        var ctx = /*[[@{/}]]*/;
+    </script>
 </div>

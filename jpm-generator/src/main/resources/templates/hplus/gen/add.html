@@ -41,7 +41,7 @@
     <link th:href="@{/hplus/css/style.css?v=4.1.0}" rel="stylesheet">
     <style>
         .wizard-big.wizard > .content {
-            min-height: 500px;
+            min-height: 550px;
         }
         .checkStyle{
             width: 16px;
@@ -51,13 +51,13 @@
             text-align: center;
         }
         .chosen-container-multi .chosen-choices{
-            width: 120px;!important;
+            width: 100%;!important;
         }
         .selCheck .chosen-container .chosen-drop{
-            width: 120px;!important;
+            width: 100%;!important;
         }
         td .chosen-container{
-            width: 120px!important;
+            width: 100%!important;
         }
         .infoOther .chosen-container{
             width: 100% !important;
@@ -78,6 +78,13 @@
         /*.first{*/
             /*display: none!important;*/
         /*}*/
+        .tableLine{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -98,7 +105,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <label>选择数据表:</label>
-                                        <select name="tableName" id="tableName" data-placeholder="选择数据表..."
+                                        <select name="name" id="tableName" data-placeholder="选择数据表..."
                                                 class="chosen-select" style="width:350px;" tabindex="2">
                                             <option value="">选择数据表</option>
                                             <option th:each="t : ${tables}"
@@ -123,21 +130,17 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>表名 *</label>
-                                        <input id="tname" name="name" type="text" class="form-control required" value="123">
+                                        <input id="tname" name="genTable.name" type="text" class="form-control required" readonly style="background: #cccccc;">
                                     </div>
                                     <div class="form-group">
                                         <label>实体类名称 *</label>
-                                        <input id="ename" name="ename" type="text" class="form-control required" value="123">
+                                        <input id="ename" name="genTable.className" type="text" class="form-control required" readonly style="background: #cccccc;">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label> 表说明 *</label>
-                                        <input id="comments" name="comments" type="text" class="form-control required" value="123">
-                                    </div>
-                                    <div class="form-group">
-                                        <label> 功能作者 *</label>
-                                        <input id="author" name="author" type="text" class="form-control required" value="123">
+                                        <input id="comments" name="genTable.comments" type="text" class="form-control required" readonly style="background: #cccccc;">
                                     </div>
                                 </div>
                             </div>
@@ -160,8 +163,8 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>生成模板 *</label>
-                                        <select data-placeholder="选择模板..." class="chosen-select" tabindex="2">
-                                            <option value="1" hassubinfo="true">单表/主子表</option>
+                                        <select data-placeholder="选择模板..." class="chosen-select" tabindex="2" name="category">
+                                            <option value="1" hassubinfo="true" selected>单表/主子表</option>
                                             <option value="2" hassubinfo="true">树表/树结构表</option>
                                             <option value="3" hassubinfo="true">业务层和持久层</option>
                                             <option value="4" hassubinfo="true">仅持久层</option>
@@ -169,33 +172,37 @@
                                     </div>
                                     <div class="form-group">
                                         <label>生成包路径 *</label>
-                                        <input id="path" name="path" type="text" class="form-control required" value="afda">
+                                        <input id="path" name="packageName" type="text" class="form-control required" readonly value="com.jpm" style="background: #cccccc;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label> 功能作者 *</label>
+                                        <input id="author" name="functionAuthor" type="text" class="form-control required">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>生成模板名 *</label>
-                                        <input id="templetName" name="templetName" type="text" class="form-control required" value="abc">
+                                        <label>生成模块名 *</label>
+                                        <input id="templetName" name="moduleName" type="text" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>生成子模块名 *</label>
-                                        <input id="childName" name="childName" type="text" class="form-control required" value="afda">
+                                        <input id="childName" name="subModuleName" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>生成功能名 *</label>
-                                        <input id="effect" name="templetName" type="text" class="form-control required" value="abc">
+                                        <input id="effect" name="functionName" type="text" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>功能名(简写) *</label>
-                                        <input id="effectShort" name="effectShort" type="text" class="form-control required" value="afda">
+                                        <input id="effectShort" name="functionNameSimple" type="text" class="form-control required">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>生成基础路径 *</label><br/>
-                                        <input id="basePath" name="basePath" type="text" class="form-control required" value="abc" style="display: inline!important;width: 85%;">
+                                        <input id="basePath" name="basePath" type="text" class="form-control" style="display: inline!important;width: 85%;">
                                         <button class="btn btn-success" id="search_submit" type="submit" style="display: inline!important;width: 10%;margin-bottom: 4px;">设置默认基础路径</button>
                                     </div>
                                 </div>
@@ -345,11 +352,9 @@
                 var tname = $("#tableName").val();
                 //基本信息
                 if(newIndex==0){
-                }
-                else if (newIndex == 1) {
 
                 }
-                else if (newIndex == 2) {  //字段信息
+                else if (newIndex == 1) {
                     jQuery("#table_list_1").jqGrid('clearGridData');
                     $.ajax({
                         url: contextPath + "gen/phy_data?tname=" + tname,
@@ -357,12 +362,13 @@
                         contentType: "application/json",
                         dataType: "json",
                         success: function (data) {
+                            //基本信息赋值
+                            $("#tname").val(data.rslt.table.name);
+                            $("#comments").val(data.rslt.table.comments);
+                            $("#ename").val(data.rslt.table.className);
+                            //字段信息表格初始化
                             $("#table_list_1").jqGrid({
-                                // data: mydata,
                                 datatype: "local",
-                                //url: contextPath + "gen/phy_data?tname=" + tname1,
-                                //mtype: 'get',
-                                //datatype:'json',
                                 height: 300,
                                 autowidth: true,
                                 shrinkToFit: true,
@@ -378,10 +384,10 @@
                                         name: 'name',
                                         align: "center",
                                         index: 'name',
-                                        width:'100',
+                                        width: 4,
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var html="<input type='text' value='"+data+"' readonly style='background: none;border: none;' name='genTable.cols["+num+"].name'/>";
+                                            var html="<input type='text' value='"+data+"' readonly style='background:none;border:none;' class='tableLine' name='genTable.cols["+num+"].name' title='"+data+"'/>";
                                             return html;
                                         }
                                     },
@@ -389,10 +395,11 @@
                                         name: 'simpleJavaField',
                                         index: 'simpleJavaField',
                                         align: "center",
-                                        width:'120',
+                                        width:'4',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var html="<input type='text' value='"+data+"' style='width:110px;' name='genTable.cols["+num+"].simpleJavaField' class='form-control'/>";
+                                            var html="<input type='text' value='"+data+"' name='genTable.cols["+num+"].simpleJavaField' class='form-control tableLine' title='"+data+"'/>" +
+                                                "<input type='hidden' value='"+rowObject.javaField+"'  name='genTable.cols["+num+"].javaField'>";
                                             return html;
                                         }
                                     },
@@ -400,23 +407,24 @@
                                         name: 'jdbcType',
                                         index: 'jdbcType',
                                         align: "center",
+                                        width:'4',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var html="<input type='text' value='"+data+"' readonly style='background:none;border:none;' name='genTable.cols["+num+"].jdbcType'/>";
+                                            var html="<input type='text' value='"+data+"' readonly style='background:none;border:none;' class='tableLine' name='genTable.cols["+num+"].jdbcType' title='"+data+"'/>";
                                             return html;
                                         }
                                     },
                                     {
                                         name: 'javaType',
                                         index: 'javaType',
-                                        align: "center",
+                                        align: "left",
                                         sorttype: "float",
+                                        width:'5',
                                         formatter:function (rowdata,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var select = "<select style='width:120px;' class='chosen-select' name='genTable.cols["+num+"].javaType'>";
+                                            var select = "<select class='chosen-select' name='genTable.cols["+num+"].javaType' title='"+rowdata+"'>";
 
                                             for(var key in data.rslt.javaType){
-
                                                 if(rowdata==key){
                                                     select+="<option value='"+key+"' selected>"+data.rslt.javaType[key]+"</option>";
                                                 }else{
@@ -434,9 +442,10 @@
                                         index: 'comments',
                                         align: "center",
                                         sorttype: "float",
+                                        width:'4',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var html="<input type='text' value='"+data+"' name='genTable.cols["+num+"].comments' style='width:130px;' class='form-control'/>";
+                                            var html="<input type='text' value='"+data+"' name='genTable.cols["+num+"].comments' class='form-control tableLine' title='"+data+"'/>";
                                             return html;
                                         }
                                     },
@@ -444,15 +453,13 @@
                                         name: 'isPk',
                                         index: 'isPk',
                                         align: "center",
-                                        width:'50',
+                                        width:'2',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
-                                            //var html="<input type='checkbox' value='"+data+"'  name='genTable.cols["+num+"].isPk' class='checkStyle checkbox checkbox-success'/>";
-                                            var html;
                                             if(data==0){
-                                                html="<input type='checkbox' value='0' checked='checked' name='genTable.cols["+num+"].isPk' class='checkStyle'/>";
+                                                var html="<input type='checkbox' value='0'  name='genTable.cols["+num+"].isPk' class='checkStyle'/>";
                                             }else {
-                                                html="<input type='checkbox' value='1' name='genTable.cols["+num+"].isPk' checked='checked' class='checkStyle'/>";
+                                                var html="<input type='checkbox' value='1'  checked name='genTable.cols["+num+"].isPk' class='checkStyle'/>";
                                             }
                                             return html;
                                         }
@@ -462,33 +469,31 @@
                                         name: 'isInsert',
                                         index: 'isInsert',
                                         align: "center",
-                                        width:'50',
+                                        width:'2',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
                                             if(data==0){
-                                                var html="<input type='checkbox' value='0' checked class='checkStyle' name='genTable.cols["+num+"].isInsert'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='0' name='genTable.cols["+num+"].isInsert' class='checkStyle'/>";
                                             }else {
                                                 var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].isInsert'/>";
-                                                return html;
                                             }
+                                            return html;
                                         }
 
                                     },
                                     {
-                                        name: 'update',
-                                        index: 'update',
+                                        name: 'isEdit',
+                                        index: 'isEdit',
                                         align: "center",
-                                        width:'50',
+                                        width:'2',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
                                             if(data==0){
-                                                var html="<input type='checkbox' value='0' checked class='checkStyle' name='genTable.cols["+num+"].update'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='0' class='checkStyle' name='genTable.cols["+num+"].isEdit'/>";
                                             }else {
-                                                var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].update'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].isEdit'/>";
                                             }
+                                            return html;
                                         }
 
                                     },
@@ -496,16 +501,15 @@
                                         name: 'isList',
                                         index: 'isList',
                                         align: "center",
-                                        width:'50',
+                                        width:'2',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
                                             if(data==0){
-                                                var html="<input type='checkbox' value='0' checked class='checkStyle' name='genTable.cols["+num+"].isList'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='0' class='checkStyle' name='genTable.cols["+num+"].isList'/>";
                                             }else {
                                                 var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].isList'/>";
-                                                return html;
                                             }
+                                            return html;
                                         }
 
                                     },
@@ -513,16 +517,15 @@
                                         name: 'isQuery',
                                         index: 'isQuery',
                                         align: "center",
-                                        width:'50',
+                                        width:'2',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
                                             if(data==0){
-                                                var html="<input type='checkbox' value='0' checked class='checkStyle' name='genTable.cols["+num+"].isQuery'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='0' class='checkStyle' name='genTable.cols["+num+"].isQuery'/>";
                                             }else {
                                                 var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].isQuery'/>";
-                                                return html;
                                             }
+                                            return html;
                                         }
 
                                     },
@@ -531,16 +534,17 @@
                                         index: 'queryType',
                                         align: "center",
                                         sorttype: "float",
+                                        width:'5',
                                         formatter:function (rowdata,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var select = "<select style='width:120px;' class='chosen-select' name='genTable.cols["+num+"].queryType'>";
+                                            var select = "<select class='chosen-select' name='genTable.cols["+num+"].queryType' title='"+rowdata+"'>";
 
                                             for(var key in data.rslt.queryType){
 
                                                 if(rowdata==key){
-                                                    select+="<option value='"+key+"' selected>"+data.rslt.queryType[key]+"</option>";
+                                                    select+="<option value='"+data.rslt.queryType[key]+"' selected>"+data.rslt.queryType[key]+"</option>";
                                                 }else{
-                                                    select+="<option value='"+key+"' >"+data.rslt.queryType[key]+"</option>";
+                                                    select+="<option value='"+data.rslt.queryType[key]+"' >"+data.rslt.queryType[key]+"</option>";
                                                 }
 
                                             }
@@ -550,19 +554,18 @@
                                         }
                                     },
                                     {
-                                        name: 'isEdit',
-                                        index: 'isEdit',
+                                        name: 'update',
+                                        index: 'update',
                                         align: "center",
-                                        width:'50',
+                                        width:'2',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
                                             if(data==0){
-                                                var html="<input type='checkbox' value='0' checked class='checkStyle' name='genTable.cols["+num+"].isEdit'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='0' class='checkStyle' name='genTable.cols["+num+"].update'/>";
                                             }else {
-                                                var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].isEdit'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].update'/>";
                                             }
+                                            return html;
                                         }
 
                                     },
@@ -570,16 +573,15 @@
                                         name: 'isNull',
                                         index: 'isNull',
                                         align: "center",
-                                        width:'50',
+                                        width:'2',
                                         formatter:function (data,option,rowObject) {
                                             var num=option.rowId-1;
                                             if(data==0){
-                                                var html="<input type='checkbox' value='0' checked class='checkStyle' name='genTable.cols["+num+"].isNull'/>";
-                                                return html;
+                                                var html="<input type='checkbox' value='0' class='checkStyle' name='genTable.cols["+num+"].isNull'/>";
                                             }else {
                                                 var html="<input type='checkbox' value='1' checked='checked' class='checkStyle' name='genTable.cols["+num+"].isNull'/>";
-                                                return html;
                                             }
+                                            return html;
                                         }
 
                                     },
@@ -588,9 +590,10 @@
                                         index: 'showType',
                                         align: "center",
                                         sorttype: "float",
+                                        width:'5',
                                         formatter:function (rowdata,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var select = "<select style='width:120px;' class='chosen-select' name='genTable.cols["+num+"].showType'>";
+                                            var select = "<select class='chosen-select' name='genTable.cols["+num+"].showType' title='"+rowdata+"'>";
 
                                             for(var key in data.rslt.showType){
 
@@ -599,7 +602,6 @@
                                                 }else{
                                                     select+="<option value='"+key+"' >"+data.rslt.showType[key]+"</option>";
                                                 }
-
                                             }
                                             select+="<select/>";
 
@@ -612,9 +614,10 @@
                                         name: 'validator',
                                         index: 'validator',
                                         sorttype: "float",
+                                        width:'5',
                                         formatter:function (rowdata,option,rowObject) {
                                             var num=option.rowId-1;
-                                            var select = "<select style='width:120px;' data-placeholder=‘请选择’ class='chosen-select' multiple tabindex=\"4\" name='genTable.cols["+num+"].validator'>";
+                                            var select = "<select data-placeholder=‘请选择’ class='chosen-select' multiple tabindex=\"4\" name='genTable.cols["+num+"].validator'>";
 
                                             for(var key in data.rslt.validator){
 
@@ -639,12 +642,9 @@
                                 sortable: false,
                                 gridComplete:function () {
                                     $('.chosen-select').chosen();
-                                    $("#table_list_1").jqGrid("saveCell",1);
+                                    $("#table_list_1").setGridWidth($('#form').width()*0.95);
                                 }
                             });
-
-
-
                             var rows =data.rslt.table.cols;
                             for ( var i = 0; i <= rows.length; i++){
                                 jQuery("#table_list_1").jqGrid('addRowData', i + 1, rows[i]);
@@ -656,32 +656,10 @@
                             alert("获取数据失败！")
                         }
                     })
-
-                    //$('.dataTables-example').dataTable();
                     $.jgrid.defaults.styleUI = 'Bootstrap';
-                    // Examle data for jqGrid
-                    var mydata = [
-                        {
-                            id: "1",
-                            lineName: "type_",
-                            showInfo: "test",
-                            amount: "varchar(64)",
-                            note: "string",
-                            tax: "type",
-                            major: "0",
-                            insert:'0',
-                            update: "1",
-                            list: "1",
-                            query:'1',
-                            way:'=',
-                            edit:'1',
-                            must:"0",
-                            formType:'单行文本框',
-                            validata:'数据'
-                        }
-                    ];
+                }
+                else if (newIndex == 2) {  //字段信息
 
-                    var dataType = [];
 
 
                 }
@@ -724,7 +702,7 @@
                 element.before(error);
             },
             rules: {
-                tableName: {
+                name: {
                     required: true
                 }
             }
@@ -755,8 +733,17 @@
         $(window).bind('resize', function () {
             var width = $('.jqGrid_wrapper').width();
             $('#table_list_1').setGridWidth(width);
-            //$('#table_list_2').setGridWidth(width);
         });
+
+
+        $(document).on("click",".checkStyle",function () {
+            if($(this).is(":checked")){
+                $(this).val(1)
+            }else{
+                $(this).val(0)
+            }
+        })
+
     });
 </script>
 

@@ -99,6 +99,12 @@ public class GenSchemeController {
         return genSchemeService.remove(ids);
     }
 
+    /**
+     * 代码下载
+     * @param response
+     * @param entity
+     * @throws Exception
+     */
     @RequestMapping(method = RequestMethod.POST,value = "code")
     public void code(HttpServletResponse response,GenScheme entity) throws Exception {
 
@@ -111,7 +117,12 @@ public class GenSchemeController {
             }else if(entry.getValue().indexOf("view")>-1){
                 zip.putNextEntry(new ZipEntry("main/resources/templates/"+entity.getModuleName()+File.separator+StringUtils.toUnderScoreCase(entity.getGenTable().getClassName())+"_"+entry.getKey()+".html"));
             }else{
-                zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+entry.getKey()+ File.separator+entity.getGenTable().getClassName()+StringUtils.capitalize(entry.getKey()) +".java"));
+                if(entry.getKey().equals("restController")){
+                    zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+"controller"+ File.separator+entity.getGenTable().getClassName()+StringUtils.capitalize(entry.getKey()) +".java"));
+                }else{
+                    zip.putNextEntry(new ZipEntry("main/java/com/jpm/"+entity.getModuleName()+File.separator+entry.getKey()+ File.separator+entity.getGenTable().getClassName()+StringUtils.capitalize(entry.getKey()) +".java"));
+                }
+
             }
 
             StringWriter sw = new StringWriter();
@@ -128,7 +139,7 @@ public class GenSchemeController {
         IOUtils.closeQuietly(zip);
         byte[] data=outputStream.toByteArray();
         response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename="+entity.getModuleName());
+        response.setHeader("Content-Disposition", "attachment; filename="+entity.getModuleName()+".zip");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
 

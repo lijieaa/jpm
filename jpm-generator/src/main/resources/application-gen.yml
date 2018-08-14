@@ -50,7 +50,8 @@ ftl:
   mapper: mapper
   dao: dao
   service: service
+  restController: restcontroller
   controller: controller
   list: view/hplus/list
-  add: view/hplus/add
+  form: view/hplus/form
   detail: view/hplus/detail

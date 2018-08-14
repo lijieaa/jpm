@@ -52,7 +52,8 @@ public class GenUtils {
                 column.setJavaType("java.util.Date");
                 column.setShowType("dateselect");
             }else if (StringUtils.startsWithIgnoreCase(column.getJdbcType(), "BIGINT")
-                    || StringUtils.startsWithIgnoreCase(column.getJdbcType(), "NUMBER")){
+                    || StringUtils.startsWithIgnoreCase(column.getJdbcType(), "NUMBER")
+                    ||StringUtils.startsWithIgnoreCase(column.getJdbcType(), "INT")){
                 // 如果是浮点型
                 String[] ss = StringUtils.split(StringUtils.substringBetween(column.getJdbcType(), "(", ")"), ",");
                 if (ss != null && ss.length == 2 && Integer.parseInt(ss[1])>0){
@@ -175,6 +176,7 @@ public class GenUtils {
         model.put("subModuleName", StringUtils.lowerCase(genScheme.getSubModuleName()));
         model.put("className", StringUtils.uncapitalize(genScheme.getGenTable().getClassName()));
         model.put("ClassName", StringUtils.capitalize(genScheme.getGenTable().getClassName()));
+        model.put("class_name", StringUtils.toUnderScoreCase(genScheme.getGenTable().getClassName()));
 
         model.put("functionName", genScheme.getFunctionName());
         model.put("functionNameSimple", genScheme.getFunctionNameSimple());

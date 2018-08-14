@@ -17,5 +17,10 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping(value = "add")
+    public String link(){
+        return "add.html";
+    }
+
 }
 
