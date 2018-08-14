@@ -1,11 +1,10 @@
 package com.jpm.common.exception.handler;
 
 import com.jpm.common.anno.advice.NoRslt;
-import com.jpm.common.config.GlobalMsg;
+import com.jpm.common.config.GlobalConfig;
 import com.jpm.common.entity.ResultEntity;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -27,7 +26,7 @@ import java.util.*;
 public class GlobalExceptionHandler {
 
     @Autowired
-    GlobalMsg globalMsg;
+    GlobalConfig globalConfig;
     /*@ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResultEntity notFoundPage404() {
@@ -48,7 +47,7 @@ public class GlobalExceptionHandler {
             errMap.put(field,defaultMessage);
             errList.add(errMap);
         }
-        return new ResultEntity(40001,globalMsg.getErrmsg().get("40001"),errList);
+        return new ResultEntity(40001, globalConfig.getErrmsg().get("40001"),errList);
     }
 
     @ExceptionHandler(MySQLSyntaxErrorException.class)
@@ -56,6 +55,6 @@ public class GlobalExceptionHandler {
     @NoRslt
     public ResultEntity mySQLSyntaxErrorException(MySQLSyntaxErrorException e) {
 
-        return new ResultEntity(40002,globalMsg.getErrmsg().get("40002"),null);
+        return new ResultEntity(40002, globalConfig.getErrmsg().get("40002"),null);
     }
 }

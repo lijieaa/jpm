@@ -622,9 +622,9 @@
                                             for(var key in data.rslt.validator){
 
                                                 if(rowdata==key){
-                                                    select+="<option value='"+key+"' selected>"+data.rslt.validator[key]+"</option>";
+                                                    select+="<option value='"+key+"' selected>"+data.rslt.validator[key].name+"</option>";
                                                 }else{
-                                                    select+="<option value='"+key+"' >"+data.rslt.validator[key]+"</option>";
+                                                    select+="<option value='"+key+"' >"+data.rslt.validator[key].name+"</option>";
                                                 }
 
                                             }

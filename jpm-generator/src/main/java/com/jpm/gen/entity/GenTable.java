@@ -3,6 +3,7 @@ package com.jpm.gen.entity;
 import com.jpm.common.entity.DataEntity;
 import com.jpm.common.utils.StringUtils;
 
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class GenTable extends DataEntity<GenTable,String> {
     public GenTable(String id) {
         super(id);
     }
-
+@Email
     public String getClassName() {
         return className;
     }

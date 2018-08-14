@@ -35,6 +35,11 @@
         <#if c.showType == "input">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">${c.comments}</label>
+            <#list c.validator as vv>
+                <#if vv?? && vv!= "">
+<div>${v[vv]["reg"]}</div>
+                </#if>
+            </#list>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="${c.javaFieldId}" id="${c.javaFieldId}">
                     </div>

@@ -20,7 +20,7 @@ public @interface Digits {
     /**
      * @return the regular expression to match
      */
-    String regexp() default "^\\+?[1-9][0-9]*$ ";
+    String regexp() default "^\\+?[1-9][0-9]*$";
 
     Class<?>[] groups() default { };
 

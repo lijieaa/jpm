@@ -1,9 +1,9 @@
 package com.jpm.gen.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.jpm.common.config.GlobalConfig;
 import com.jpm.common.entity.JqGridEntity;
 import com.jpm.common.utils.StringUtils;
-import com.jpm.gen.dao.GenSchemeDao;
 import com.jpm.gen.entity.GenScheme;
 import com.jpm.gen.service.GenSchemeService;
 import com.jpm.gen.utils.GenUtils;
@@ -30,17 +30,10 @@ import java.util.zip.ZipOutputStream;
 @ConfigurationProperties
 public class GenSchemeController {
 
+    @Autowired
+    GlobalConfig config;
 
-    public Map<String, String> getFtl() {
-        return ftl;
-    }
 
-    public void setFtl(Map<String, String> ftl) {
-        this.ftl = ftl;
-    }
-
-    //查询类型
-    private Map<String, String> ftl = new LinkedHashMap<String,String>();
 
     @Autowired
     GenSchemeService genSchemeService;
@@ -111,7 +104,7 @@ public class GenSchemeController {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
 
-        for (Map.Entry<String, String> entry : ftl.entrySet()) {
+        for (Map.Entry<String, String> entry : config.getFtl().entrySet()) {
             if(entry.getKey().equals("mapper")){
                 zip.putNextEntry(new ZipEntry("main/resources/mapper/"+entity.getModuleName()+File.separator+entity.getGenTable().getClassName()+"Dao.xml"));
             }else if(entry.getValue().indexOf("view")>-1){
@@ -126,7 +119,7 @@ public class GenSchemeController {
             }
 
             StringWriter sw = new StringWriter();
-            Map<String, Object> dataModel = GenUtils.getDataModel(entity);
+            Map<String, Object> dataModel = GenUtils.getDataModel(entity,config.getValidator());
             GenUtils.render(entry.getValue()+".ftl",dataModel,sw);
             IOUtils.write(sw.toString(),zip,"UTF-8");
             IOUtils.closeQuietly(sw);

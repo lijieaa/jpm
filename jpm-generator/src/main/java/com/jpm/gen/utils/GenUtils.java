@@ -1,6 +1,7 @@
 package com.jpm.gen.utils;
 
 import com.google.common.collect.Maps;
+import com.jpm.common.config.GlobalConfig;
 import com.jpm.common.utils.DateUtils;
 import com.jpm.common.utils.StringUtils;
 import com.jpm.gen.entity.GenScheme;
@@ -11,6 +12,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 import java.util.Map;
@@ -22,6 +24,9 @@ import java.util.Map;
  **/
 public class GenUtils {
     private static Logger logger = LoggerFactory.getLogger(GenUtils.class);
+
+    @Autowired
+    GlobalConfig config;
 
     /**
      * 初始化列属性字段
@@ -167,7 +172,7 @@ public class GenUtils {
      * @param genScheme
      * @return
      */
-    public static Map<String, Object> getDataModel(GenScheme genScheme){
+    public static Map<String, Object> getDataModel(GenScheme genScheme,Map<String, Map> validator){
         Map<String, Object> model = Maps.newHashMap();
 
         model.put("packageName", StringUtils.lowerCase(genScheme.getPackageName()));
@@ -191,7 +196,7 @@ public class GenUtils {
                 ?":"+StringUtils.lowerCase(genScheme.getSubModuleName()):"")+":"+model.get("className"));
 
         //model.put("dbType", Global.getConfig("jdbc.type"));
-
+        model.put("v",validator);
         model.put("table", genScheme.getGenTable());
 
         return model;
@@ -200,7 +205,7 @@ public class GenUtils {
 
     public static void render(String tpl,Map<String, Object> root,Writer out) throws Exception {
         Configuration cfg = new Configuration();
-        cfg.setDirectoryForTemplateLoading(new File("D:\\VisizenProject\\cq_ataike\\code\\server\\trunk\\jpm\\jpm-generator\\src\\main\\resources\\ftl"));
+        cfg.setClassForTemplateLoading(GenUtils.class,"/ftl");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         Template temp = cfg.getTemplate(tpl);
