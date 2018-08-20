@@ -2,6 +2,7 @@ package com.jpm.common.validator;
 
 import com.jpm.common.anno.validator.Abc;
 import com.jpm.common.anno.validator.Date;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

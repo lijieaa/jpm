@@ -9,7 +9,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>${functionName}</h5>
+                    <h5>系统用户管理</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link ">
                             <i class="fa fa-chevron-up"></i>
@@ -19,15 +19,11 @@
                 <div class="ibox-content">
                     <div class="row">
                         <form role="form" class="form-inline" id="search-form">
-                        <#list table.cols as c>
-                            <#if c.isQuery?? && c.isQuery == "1">
                                 <div class="form-group">
-                                    <label for="${c.simpleJavaField}" class="sr-only">${c.comments}</label>
-                                    <input type="text" placeholder="${c.comments}" id="${c.simpleJavaField}" name="${c.simpleJavaField}"
+                                    <label for="username" class="sr-only">账号</label>
+                                    <input type="text" placeholder="账号" id="username" name="username"
                                            class="form-control">
                                 </div>
-                            </#if>
-                        </#list>
                             <button class="btn btn-w-m btn-success" type="button" id="search">查询</button>
                             <button class="btn btn-w-m btn-success" type="button" id="reset">重置</button>
                         </form>
@@ -59,7 +55,7 @@
 <script th:inline="javascript">
     $.jgrid.defaults.styleUI = 'Bootstrap';
     $("#table").jqGrid({
-        url: ctx + "api/${moduleName}/${class_name}/jggrid",
+        url: ctx + "api/sys/sys_user/jggrid",
         datatype: "json",
         jsonReader: {
             root: "rslt.rows",
@@ -73,23 +69,39 @@
         rownumbers: true,
         mtype: "GET",
         colNames: [
-            <#list table.cols as c>
-                <#if c.isList?? && c.isList == "1">
-                    "${c.comments}",
-                </#if>
-            </#list>
+                    "账号",
+                    "创建人",
+                    "最后修改人",
+                    "创建时间",
+                    "最后更新时间",
             '操作'
         ],
         colModel: [
-            <#list table.cols as c>
-                <#if c.isList?? && c.isList == "1">
             {
-                name: "${c.simpleJavaField}",
+                name: "username",
                 align: "left",
-                index: "${c.simpleJavaField}"
+                index: "username"
             },
-                </#if>
-            </#list>
+            {
+                name: "createBy",
+                align: "left",
+                index: "createBy"
+            },
+            {
+                name: "updateBy",
+                align: "left",
+                index: "updateBy"
+            },
+            {
+                name: "createDate",
+                align: "left",
+                index: "createDate"
+            },
+            {
+                name: "updateDate",
+                align: "left",
+                index: "updateDate"
+            },
             {
                 name: '',
                 index: '',
@@ -136,7 +148,7 @@
         var id  = $(this).attr("data-id");
         //console.log(id);
         $.ajax({
-            url: ctx + "api/${moduleName}/${class_name}/"+id,
+            url: ctx + "api/sys/sys_user/"+id,
             method: "delete",
             dataType: "json",
             success: function (data) {

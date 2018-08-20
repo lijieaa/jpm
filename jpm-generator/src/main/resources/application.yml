@@ -4,7 +4,7 @@ spring:
  datasource:
   type: com.alibaba.druid.pool.DruidDataSource
   #mysql配置
-  url: jdbc:mysql://192.168.30.3:3306/jeesite?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true&autoReconnect=true
+  url: jdbc:mysql://192.168.30.3:3306/ataike?characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull&&allowMultiQueries=true&autoReconnect=true
   username: root
   password:
   driverClassName: com.mysql.jdbc.Driver

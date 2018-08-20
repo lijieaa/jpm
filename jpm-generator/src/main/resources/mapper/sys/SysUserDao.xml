@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jpm.sys.dao.SysUserDao">
+
+    <sql id="Base_Column_List">
+                    a.id AS "id",
+                a.username AS "username",
+                a.password AS "password",
+                a.create_by AS "createBy",
+                a.update_by AS "updateBy",
+                a.create_date AS "createDate",
+                a.update_date AS "updateDate"
+    </sql>
+
+
+    <select id="select" resultType="com.jpm.sys.entity.SysUserEntity">
+            SELECT
+            <include refid="Base_Column_List" />
+            FROM sys_user a
+            WHERE a.id = #{id}
+    </select>
+
+
+    <select id="selectByUsername" resultType="com.jpm.sys.entity.SysUserEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_user a
+        WHERE a.username=#{0}
+    </select>
+
+
+    <select id="selectAll" resultType="com.jpm.sys.entity.SysUserEntity">
+
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_user a
+        <where>
+			<if test="username != null and username != ''">
+				AND a.username LIKE
+					<if test="_databaseId == 'oracle'">'%'||#{username}||'%'</if>
+					<if test="_databaseId == 'mssql'">'%'+#{username}+'%'</if>
+					<if test="_databaseId == 'mysql'">concat('%',#{username},'%')</if>
+			</if>
+        </where>
+        <if test="orderByClause!=null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+
+
+    <insert id="insert">
+
+        INSERT INTO sys_user(
+                        id,
+                    username,
+                    password,
+                    create_by,
+                    update_by,
+                    create_date,
+                    update_date
+        ) VALUES (
+                        #{id},
+                    #{username},
+                    #{password},
+                    #{createBy},
+                    #{updateBy},
+                    #{createDate},
+                    #{updateDate}
+        )
+
+    </insert>
+
+    <update id="update">
+
+        UPDATE sys_user SET
+                            username = #{username},
+                        password = #{password},
+                        update_by = #{updateBy},
+                        update_date = #{updateDate}
+        WHERE id = #{id}
+
+    </update>
+
+
+    <delete id="delete" parameterType="java.util.ArrayList">
+
+        delete from sys_user
+        where id in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+        </foreach>
+
+    </delete>
+</mapper>

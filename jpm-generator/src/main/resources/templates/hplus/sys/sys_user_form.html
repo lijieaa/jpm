@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<head th:include="include :: header"></head>
+<link th:href="@{/hplus/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+<link th:href="@{/hplus/css/plugins/chosen/chosen.css}" rel="stylesheet">
+<link th:href="@{/hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+<style>
+    .form-group{
+        padding: 7px 0;
+    }
+    .chosen-container{
+        width: 100%!important;
+    }
+    .chosen-container-single .chosen-single{
+        background: none!important;
+        border-radius: 1px;
+        border: 1px solid #CBD5DD;
+        line-height: 30px;
+    }
+</style>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0;">
+    <div class="row" style="background: #fff;">
+        <div class="box-header" style="border-bottom: 1px #cccccc solid;">
+            <div class="box-title" style="height: 50px;margin-left: 30px;line-height: 50px;font-size: 20px;letter-spacing: 5px;"></div>
+        </div>
+        <form id="form" action="#">
+            <div class="col-sm-6" style="margin-top: 20px;">
+            <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>账号</label>
+                        <input name="username" id="username" type="text" class="form-control">
+                    </div>
+                </div>
+
+            <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input name="password" id="password" type="text" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-offset-5 col-sm-12" style="padding-bottom: 20px;">
+                <button class="btn btn-sm btn-primary btnSave"><i class="fa fa-check"></i>保存</button>
+                <button class="btn btn-sm btn-default"><i class="fa fa-reply-all"></i>关闭</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:include="include :: footer"></div>
+<script th:src="@{/hplus/js/plugins/chosen/chosen.jquery.js}"></script>
+
+<script th:src="@{/hplus/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+<script th:src="@{/hplus/js/plugins/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/hplus/js/plugins/validate/messages_zh.min.js}"></script>
+<script th:src="@{/hplus/js/Jpm-validator.js}" ></script>
+
+<script th:inline="javascript">
+    var id=[[${#request.getParameter('id')}]];
+    //validate验证
+    $(document).ready(function(){
+
+        if(id){
+            $.ajax({
+                url: ctx + "api/sys/sys_user/"+id,
+                method: "get",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if(data.errcode==0){
+
+
+                        $("#username").val(data.rslt.username);
+
+                        $("#password").val(data.rslt.password);
+
+
+
+
+
+
+                    }else{
+                        alert("加载数据出错！");
+                    }
+                },
+                error: function () {
+                    console.log("error");
+                }
+            })
+        }
+
+
+        $("#form").validate({
+            rules:{
+        username:{
+            required:true,
+                },
+        password:{
+            required:true,
+                },
+            },
+            //是否在获取焦点时验证
+            //onfocusout:false,
+            //是否在敲击键盘时验证
+            //onkeyup:false,
+            //提交表单后，（第一个）未通过验证的表单获得焦点
+            focusInvalid:true,
+            //当未通过验证的元素获得焦点时，移除错误提示
+            focusCleanup:true,
+
+            submitHandler: function (form) {
+
+            if(id){
+                var data = $(form).serializeObject();
+                data.id=id;
+                $.ajax({
+                    url: ctx + "api/sys/sys_user/",
+                    method: "put",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    success: function (data) {
+                        location.href="list";
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            }else{
+                var data = $(form).serializeObject();
+                $.ajax({
+                    url: ctx + "api/sys/sys_user/",
+                    method: "post",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    success: function (data) {
+                        location.href="list";
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            }
+
+
+        },
+        invalidHandler: function (form) {
+
+        }
+
+        });
+
+
+        //datepicker调用
+        $(".selectDate").datepicker({
+            autoclose: true, //自动关闭
+            //beforeShowDay: $.noop,    //在显示日期之前调用的函数
+            calendarWeeks: false,     //是否显示今年是第几周
+            clearBtn: false,          //显示清除按钮
+            daysOfWeekDisabled: [],   //星期几不可选
+            endDate: Infinity,        //日历结束日期
+            forceParse: true,         //是否强制转换不符合格式的字符串
+            format: 'yyyy-mm-dd',     //日期格式
+            keyboardNavigation: true, //是否显示箭头导航
+            language: 'cn',           //语言
+            minViewMode: 0,
+            orientation: "auto",      //方向
+            rtl: false,
+            startDate: -Infinity,     //日历开始日期
+            startView: 0,             //开始显示
+            todayBtn: false,          //今天按钮
+            todayHighlight: true,    //今天高亮
+            weekStart: 0
+        });
+        //下拉框复选框初始化
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': {
+                allow_single_deselect: true
+            },
+            '.chosen-select-no-single': {
+                disable_search_threshold: 10
+            },
+            '.chosen-select-no-results': {
+                no_results_text: 'Oops, nothing found!'
+            },
+            '.chosen-select-width': {
+                width: "95%"
+            }
+        };
+
+        $('.chosen-select').chosen();
+    });
+</script>
+
+
+
+
+
+</body>
+
+</html>
+
+
+

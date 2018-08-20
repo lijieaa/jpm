@@ -25,7 +25,6 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping(value = "gen")
-@ConfigurationProperties  // 配置文件中的前缀
 public class GenTableController {
 
 

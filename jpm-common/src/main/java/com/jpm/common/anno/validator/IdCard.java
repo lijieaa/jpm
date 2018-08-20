@@ -16,6 +16,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = { IdCardValidator.class })
 public @interface IdCard {
+
+
     String message() default "身份证格式不正确";
     /**
      * @return the regular expression to match

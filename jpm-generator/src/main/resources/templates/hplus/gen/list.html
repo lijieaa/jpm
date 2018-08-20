@@ -2,6 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
 <head th:include="include :: header"></head>
+<style>
+    .float-e-margins .btn{
+        margin-bottom: 0;!important;
+    }
+    .ibox-tools a{
+        color: #ffffff;!important;
+    }
+    .ibox-title{
+        padding: 8px 15px 7px;!important;
+    }
+</style>
 
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -38,7 +49,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="ibox-tools">
-                        <button class="btn btn-w-m btn-success">新增</button>
+                        <a class="btn btn-w-m btn-success btn-add">新增</a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -102,7 +113,7 @@
                 align: "left",
                 sortable: false,
                 formatter: function (data, option, rowObject) {
-                    var html = "<a class='btn btn-white btn-bitbucket' title='编辑生成配置' id='edit-deploy'><i class='fa fa-pencil'></i></a>" +
+                    var html = "<a class='btn btn-white btn-bitbucket edit-deploy J_menuItem' title='编辑生成配置'><i class='fa fa-pencil'></i></a>" +
                         "<a class='btn btn-white btn-bitbucket' title='删除生成配置'  id='delete-deploy'><i class='fa fa-trash-o'></i></a>" +
                         "<a class='btn btn-white btn-bitbucket' title='生成代码' id='make-deploy'><i class='fa fa-bug'></i></a>";
                     return html;
@@ -145,6 +156,17 @@
             datatype: 'json'
         }).trigger('reloadGrid');
     }
+    //新增
+    $(document).on("click",".btn-add",function () {
+        $(".btn-add").attr("href","/add");
+    });
+    //编辑
+    $(document).on("click",".edit-deploy",function () {
+        // var id=$("#table").jqGrid('getGridParam','selrow');
+        // var rowDatas = $("#table").jqGrid('getRowData', id);
+        var id=$("#table").jqGrid("getGridParam","selrow");
+         $(".edit-deploy").attr("href",'/add?id='+id+'');
+    });
 
     //当窗口改变时设置表自动适应
     $(window).bind('resize', function () {
