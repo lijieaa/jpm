@@ -22,6 +22,8 @@
         <pagehelper.version>1.2.3</pagehelper.version>
         <freemarker.version>2.3.20</freemarker.version>
         <commons.io.version>2.5</commons.io.version>
+        <springfox.swagger2.version>2.6.1</springfox.swagger2.version>
+        <springfox.swagger.ui.version>2.6.1</springfox.swagger.ui.version>
     </properties>
 
     <modules>
@@ -34,6 +36,18 @@
     </modules>
 
     <dependencies>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.swagger2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.swagger.ui.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
